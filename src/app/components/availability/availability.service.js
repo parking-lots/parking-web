@@ -1,7 +1,16 @@
 export class AvailabilityService {
-  constructor ($resource) {
+  constructor ($resource, AvailabilityConstant) {
     "ngInject";
 
+    this.availalbilityDataResource = $resource(
+      AvailabilityConstant.domain.concat(AvailabilityConstant.availabilityDataURI)
+    );
+
+    /**
+     * Mock
+     *
+     * @type {*[]}
+       */
     this.parkingAvailabilityData = [
       {
         "number": "107",
