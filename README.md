@@ -1,2 +1,2 @@
 # parking-web
-AngularJS + Gulp
+AngularJS + Gulp + Sass
