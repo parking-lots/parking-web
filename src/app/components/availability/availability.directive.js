@@ -11,18 +11,54 @@ export function AvailabilityDirective() {
 }
 
 class AvailabilityController {
-  constructor (moment, AvailabilityService) {
+  constructor ($q, moment, AvailabilityService) {
     "ngInject";
 
-    this.parkingAvailabilityData = AvailabilityService.getAvailability();
+    this.q = $q;
+    this.AvailabilityService = AvailabilityService;
+    this.setAvailabilityData();
     AvailabilityService.findCurrentLot().then( lot => { this.currentLot = lot; } );
+
+    this.loading = [];
 
     //this.relativeDate = moment(this.creationDate).fromNow();
   }
 
-  reserve(lot) {
+  setAvailabilityData() {
+    this.parkingAvailabilityData = this.AvailabilityService.getAvailability();
+  }
 
-    alert(`You have just reserved lot ${lot.number} in ${lot.floor} floor.`);
+  fakeReservePromise() {
+    var deferred = this.q.defer();
+    setTimeout( _ => { deferred.resolve("Resolved...") }, 400 );
+
+    return deferred.promise;
+
+  }
+
+  isLoading(lot) {
+    return this.loading.indexOf(lot.number) !== -1;
+  }
+
+  setLoading(lot) {
+    if ( this.loading.indexOf(lot.number) === -1 ) {
+      this.loading.push(lot.number);
+    }
+  }
+
+  resetLoading() {
+    this.loading = [];
+  }
+
+  reserve(lot) {
+    this.setLoading(lot);
+    this.fakeReservePromise().then( _=> {
+      this.resetLoading();
+    });
+
+    //alert(`You have just reserved lot ${lot.number} in ${lot.floor} floor.`);
     return true;
   }
+
+
 }
