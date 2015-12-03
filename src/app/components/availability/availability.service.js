@@ -1,6 +1,7 @@
 export class AvailabilityService {
   constructor ($resource, moment, AvailabilityConstant) {
     "ngInject";
+
     this.moment = moment;
     this.getResource = (scope = "list") => $resource(AvailabilityConstant.getUri(scope), null, { "update": { "method": "PUT" } });
 

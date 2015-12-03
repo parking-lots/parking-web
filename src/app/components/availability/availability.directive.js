@@ -11,43 +11,41 @@ export function AvailabilityDirective() {
 }
 
 class AvailabilityController {
-  constructor ($q, moment, AvailabilityService) {
+  constructor ($q, AvailabilityService) {
     "ngInject";
 
     this.q = $q;
     this.AvailabilityService = AvailabilityService;
     this.setAvailabilityData();
     AvailabilityService.findCurrentLot().then( lot => { this.currentLot = lot; } );
-
-    this.loading = [];
-
-    //this.relativeDate = moment(this.creationDate).fromNow();
+    this.loading = new Map;
   }
 
   setAvailabilityData() {
-    this.parkingAvailabilityData = this.AvailabilityService.getAvailability();
+    this.AvailabilityService.getAvailability().$promise.then(availability => {
+      let numbers = availability.map(lot => lot.number);
+      this.parkingAvailabilityData = availability.filter((lot,index) => numbers.indexOf(lot.number) === index);
+      numbers.map(number => {this.loading.set(number, false)});
+    });
   }
 
   fakeReservePromise() {
     var deferred = this.q.defer();
-    setTimeout( _ => { deferred.resolve("Resolved...") }, 400 );
+    setTimeout( () => { deferred.resolve("Resolved...") }, 400 );
 
     return deferred.promise;
-
   }
 
   isLoading(lot) {
-    return this.loading.indexOf(lot.number) !== -1;
+    return this.loading.get(lot.number);
   }
 
   setLoading(lot) {
-    if ( this.loading.indexOf(lot.number) === -1 ) {
-      this.loading.push(lot.number);
-    }
+    this.loading.set(lot.number, true);
   }
 
   resetLoading() {
-    this.loading = [];
+    Object.keys(this.loading).map(key => {this.loading[key] = false});
   }
 
   reserve(lot) {
