@@ -1,13 +1,20 @@
 export class AvailabilityService {
-  constructor ($resource, AvailabilityConstant) {
+  constructor ($resource, moment, AvailabilityConstant) {
     "ngInject";
-
-    this.getResource = (scope = "list") => $resource(AvailabilityConstant.getUri(scope));
+    this.moment = moment;
+    this.getResource = (scope = "list") => $resource(AvailabilityConstant.getUri(scope), null, { "update": { "method": "PUT" } });
 
   }
 
   getAvailability() {
-    return this.getResource("list").query();
+    return this.getResource().query();
+  }
+
+  freeUpLot(lot, days = 1) {
+    let freeTill = this.moment(new Date).add(days, 'days');
+    lot.freeTill = freeTill.format("YYYY-MM-DD");
+
+    return this.getResource().update(lot).$promise;
   }
 
   findCurrentLot() {

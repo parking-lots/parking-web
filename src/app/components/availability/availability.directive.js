@@ -54,11 +54,17 @@ class AvailabilityController {
     this.setLoading(lot);
     this.fakeReservePromise().then( _=> {
       this.resetLoading();
+      this.setAvailabilityData();
     });
-
-    //alert(`You have just reserved lot ${lot.number} in ${lot.floor} floor.`);
-    return true;
   }
 
-
+  freeUpLot(lot) {
+    this.AvailabilityService.freeUpLot(lot).then( response => {
+      if (response.status === "OK") {
+        this.setAvailabilityData();
+      }
+    } ).catch( response => { //wtf
+      console.log(response.data.message);
+    } );
+  }
 }

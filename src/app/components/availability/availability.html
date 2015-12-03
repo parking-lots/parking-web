@@ -8,7 +8,10 @@
         <div ng-if="vm.currentLot">
           <strong>Number:</strong> {{ vm.currentLot.number }}<br>
           <strong>Floor:</strong> {{ vm.currentLot.floor }}<br>
-          <strong>Owner:</strong> {{ vm.currentLot.owner }}
+          <strong>Owner:</strong> {{ vm.currentLot.owner }}<br><br>
+          <div>
+            <a class="btn btn-sm btn-primary" ng-click="vm.freeUpLot(vm.currentLot)">Free Up</a>
+          </div>
         </div>
         <span ng-if="!vm.currentLot">You have no lots reserved yet.</span>
       </div>
