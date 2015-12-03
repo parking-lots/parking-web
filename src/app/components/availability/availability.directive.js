@@ -59,11 +59,8 @@ class AvailabilityController {
   }
 
   freeUpLot(lot) {
-    this.AvailabilityService.freeUpLot(lot).then( response => {
-      if (response.status === "OK") {
-        this.setAvailabilityData();
-      }
-    } ).catch( response => { //wtf
+    this.AvailabilityService.freeUpLot(lot).then( _=> { this.setAvailabilityData(); }
+    ).catch( response => { //wtf
       console.log(response.data.message);
     } );
   }

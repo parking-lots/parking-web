@@ -11,9 +11,8 @@ export class AvailabilityService {
   }
 
   freeUpLot(lot, days = 1) {
-    let freeTill = this.moment(new Date).add(days, 'days');
-    lot.freeTill = freeTill.format("YYYY-MM-DD");
-
+    lot.freeFrom = this.moment(new Date).format("YYYY-MM-DD");
+    lot.freeTill = this.moment(new Date).add(days, 'days').format("YYYY-MM-DD");
     return this.getResource().update(lot).$promise;
   }
 

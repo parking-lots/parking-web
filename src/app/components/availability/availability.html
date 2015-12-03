@@ -24,8 +24,8 @@
 </div>
 
 <div class="row availability-list" ng-if="vm.parkingAvailabilityData.length">
-  <div class="col-xs-4 col-lg-2" ng-repeat="lot in vm.parkingAvailabilityData">
-    <a class="btn btn-block btn-sm"
+  <div class="col-xs-12 col-lg-3" ng-repeat="lot in vm.parkingAvailabilityData">
+    <a class="btn btn-block btn-md"
        ng-click="vm.reserve(lot)"
        ng-class="{'btn-default': vm.isLoading(lot), 'btn-success': !vm.isLoading(lot)}"
        ng-disabled="vm.isLoading(lot)"
