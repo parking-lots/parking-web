@@ -4,9 +4,6 @@ export function AvailabilityDirective() {
   return {
     restrict: "E",
     templateUrl: "app/components/availability/availability.html",
-    /*scope: {
-        creationDate: "="
-    },*/
     controller: AvailabilityController,
     controllerAs: "vm",
     bindToController: true
@@ -16,10 +13,16 @@ export function AvailabilityDirective() {
 class AvailabilityController {
   constructor (moment, AvailabilityService) {
     "ngInject";
-    this.parkingAvailabilityData = AvailabilityService.getAvailability();
-    this.currentLot = AvailabilityService.findCurrentLot();
 
+    this.parkingAvailabilityData = AvailabilityService.getAvailability();
+    AvailabilityService.findCurrentLot().then( lot => { this.currentLot = lot; } );
 
     //this.relativeDate = moment(this.creationDate).fromNow();
+  }
+
+  reserve(lot) {
+
+    alert(`You have just reserved lot ${lot.number} in ${lot.floor} floor.`);
+    return true;
   }
 }

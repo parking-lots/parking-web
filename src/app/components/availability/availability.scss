@@ -1,5 +1,9 @@
 .availability-list {
   > * {
     margin-bottom: 25px;
+
+    a {
+      //font-size: $font-size-h5;
+    }
   }
 }

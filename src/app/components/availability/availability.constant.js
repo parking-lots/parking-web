@@ -1,6 +1,13 @@
 export function AvailabilityConstant() {
   "ngInject";
 
-  this.domain = "http://www.google.com/";
-  this.availabilityDataURI = "parking/available/";
+  let domain = "http://www.devone.lt:9000/",
+      URI = {
+        "list": "parking/available"
+      };
+
+  this.getUri = function(scope = "list") {
+    return domain.concat(URI[scope]);
+  }
+
 }

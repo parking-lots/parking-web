@@ -1,19 +1,26 @@
-<div class="panel panel-default">
+<div class="panel panel-success">
   <div class="panel-heading">
-    <h3 class="panel-title">Current lot</h3>
+    <h3 class="panel-title">Currently reserved lot</h3>
   </div>
   <div class="panel-body">
-    {{ vm.currentLot }}
+    <div ng-if="vm.currentLot">
+      Number: {{ vm.currentLot.number }}<br>
+      Floor: {{ vm.currentLot.floor }}<br>
+      Owner: {{ vm.currentLot.owner }}
+    </div>
+    <span ng-if="!vm.currentLot">You have no lots reserved yet.</span>
   </div>
 </div>
 
-<div class="row availability-list">
+<div class="panel panel-default" ng-if="!vm.parkingAvailabilityData.length">
+  <div class="panel-body">No available parking lots found.</div>
+</div>
+
+<div class="row availability-list" ng-if="vm.parkingAvailabilityData.length">
   <div class="col-xs-4 col-lg-2" ng-repeat="lot in vm.parkingAvailabilityData">
-    <a
-      class="btn btn-block btn-lg btn-success"
-    >
-      {{ lot.number }}<br>
-      <small class="mute">{{ lot.floor }}</small>
+    <a class="btn btn-block btn-sm btn-success" ng-click="vm.reserve(lot)">
+      {{ lot.number }}
+      <span ng-if="lot.floor">({{ lot.floor }})</span>
     </a>
   </div>
 </div>
