@@ -22,10 +22,12 @@ class AvailabilityController {
   }
 
   setAvailabilityData() {
+    console.log("Setting availability data.");
     this.AvailabilityService.getAvailability().$promise.then(availability => {
       let numbers = availability.map(lot => lot.number);
       this.parkingAvailabilityData = availability.filter((lot,index) => numbers.indexOf(lot.number) === index);
       numbers.map(number => {this.loading.set(number, false)});
+      console.log(availability);
     });
   }
 
@@ -57,9 +59,24 @@ class AvailabilityController {
   }
 
   freeUpLot(lot) {
-    this.AvailabilityService.freeUpLot(lot).then( _=> { this.setAvailabilityData(); }
-    ).catch( response => { //wtf
-      console.log(response.data.message);
-    } );
+    this.AvailabilityService.freeUpLot(lot)
+      .then(response => {
+        this.setAvailabilityData();
+        console.log(response);
+      })
+      .catch(response => {
+        console.log(response.data.message);
+      });
+  }
+
+  resetLot(lot) {
+    this.AvailabilityService.resetLot(lot)
+      .then(response => {
+        this.setAvailabilityData();
+        console.log(response);
+      })
+      .catch(response => {
+        console.log(response.data.message);
+      });
   }
 }
