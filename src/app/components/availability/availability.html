@@ -8,14 +8,10 @@
         <div ng-if="vm.currentLot">
           <strong>Number:</strong> {{ vm.currentLot.number }}<br>
           <strong>Floor:</strong> {{ vm.currentLot.floor }}<br>
-          <strong>Owner:</strong> {{ vm.currentLot.owner }}<br><br>
-          <div class="row">
-            <div class="col-xs-6">
-              <a class="btn btn-block btn-lg btn-default" ng-if="vm.isfreeUpLotAvailable()"  ng-click="vm.freeUpLot(vm.currentLot)">Free Up</a>
-            </div>
-            <div class="col-xs-6">
-              <a class="btn btn-block btn-lg btn-warning" ng-if="vm.isResetLotAvailable()" ng-click="vm.resetLot(vm.currentLot)">Reset</a>
-            </div>
+          <strong>Owner:</strong> {{ vm.currentLot.owner }}
+          <div class="buffer-top">
+            <a class="btn btn-block btn-lg btn-success" ng-if="vm.isFreeUpLotAvailable()"  ng-click="vm.freeUpLot(vm.currentLot)">Free Up</a>
+            <a class="btn btn-block btn-lg btn-warning" ng-if="vm.isResetLotAvailable()" ng-click="vm.resetLot(vm.currentLot)">Reset</a>
           </div>
         </div>
         <span ng-if="!vm.currentLot">You have no lots reserved yet.</span>
@@ -30,15 +26,15 @@
 
 <div class="row availability-list" ng-if="vm.parkingAvailabilityData.length">
   <div class="col-xs-12 col-lg-3" ng-repeat="lot in vm.parkingAvailabilityData">
-    <a class="btn btn-block btn-lg"
+    <a class="btn btn-block btn-lg btn-success"
        ng-click="vm.reserve(lot)"
-       ng-class="{'btn-default': vm.isLoading(lot), 'btn-success': !vm.isLoading(lot)}"
        ng-disabled="vm.isLoading(lot)"
     >
       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" ng-if="vm.isLoading(lot)"></span>
       <span ng-if="!vm.isLoading(lot)">
         {{ lot.number }}
-      <span ng-if="lot.floor">({{ lot.floor }})</span>
+        <span ng-if="lot.floor">({{ lot.floor }})</span>
+        {{lot}}
       </span>
     </a>
   </div>
