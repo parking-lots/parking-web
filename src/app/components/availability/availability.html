@@ -10,8 +10,8 @@
           <strong>Floor:</strong> {{ vm.currentLot.floor }}<br>
           <strong>Owner:</strong> {{ vm.currentLot.owner }}<br><br>
           <div>
-            <a class="btn btn-sm btn-primary" ng-click="vm.freeUpLot(vm.currentLot)">Free Up</a>
-            <a class="btn btn-sm btn-danger" ng-click="vm.resetLot(vm.currentLot)">Reset</a>
+            <a class="btn btn-sm btn-primary" ng-if="vm.isfreeUpLotAvailable()" ng-click="vm.freeUpLot(vm.currentLot)">Free Up</a>
+            <a class="btn btn-sm btn-danger" ng-if="vm.isResetLotAvailable()" ng-click="vm.resetLot(vm.currentLot)">Reset</a>
           </div>
         </div>
         <span ng-if="!vm.currentLot">You have no lots reserved yet.</span>

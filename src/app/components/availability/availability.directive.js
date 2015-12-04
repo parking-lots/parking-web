@@ -58,6 +58,10 @@ class AvailabilityController {
     });
   }
 
+  isfreeUpLotAvailable(lot) {
+    return !!this.currentLot;
+  }
+
   freeUpLot(lot) {
     this.AvailabilityService.freeUpLot(lot)
       .then(response => {
@@ -67,6 +71,18 @@ class AvailabilityController {
       .catch(response => {
         console.log(response.data.message);
       });
+  }
+
+  isResetLotAvailable() {
+    // search this available free lots with this lot as a needle,
+    // if found then reset is available
+    // because this user has been set his lot as available/free
+
+    console.log("-----------------------------------------------");
+    console.log("Searching if reset lot is available...");
+    console.log(this.currentLot.number);
+    console.log(this.parkingAvailabilityData);
+    return false;
   }
 
   resetLot(lot) {
