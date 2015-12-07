@@ -28,14 +28,6 @@ class AvailabilityController {
     this.parkingAvailabilityData = this.AvailabilityService.getAvailability();
   }
 
-  fakeReservePromise() {
-    var deferred = this.q.defer();
-    setTimeout( _ => { deferred.resolve("Resolved...") }, 400 );
-
-    return deferred.promise;
-
-  }
-
   isLoading(lot) {
     return this.loading.indexOf(lot.number) !== -1;
   }
@@ -46,22 +38,27 @@ class AvailabilityController {
     }
   }
 
+  shareSpot(lot) {
+      this.AvailabilityService.shareSpot(this.lot);
+  }
+
+  takeSpotBack() {
+    this.AvailabilityService.takeSpotBack();
+  }
+
   resetLoading() {
     this.loading = [];
   }
 
   reserve(lot) {
     this.setLoading(lot);
-    this.fakeReservePromise().then( _=> {
-      this.resetLoading();
-      this.setAvailabilityData();
-    });
+    this.AvailabilityService.reserveFreeSpot(lot);
   }
 
   freeUpLot(lot) {
-    this.AvailabilityService.freeUpLot(lot).then( _=> { this.setAvailabilityData(); }
+    this.AvailabilityService.freeUpLot(lot).then( _ => { this.setAvailabilityData(); delete this.currentLot }
     ).catch( response => { //wtf
-      console.log(response.data.message);
+      console.log(response);
     } );
   }
 }

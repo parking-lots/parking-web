@@ -1,7 +1,9 @@
-export function config ($logProvider, toastrConfig) {
+export function config ($logProvider, toastrConfig, $httpProvider) {
   "ngInject";
   // Enable log
   $logProvider.debugEnabled(true);
+  $httpProvider.defaults.headers.common['Authorization'] = 'Basic ' + window.btoa("jurgis:jurgis");
+  console.log("shitisset");
 
   // Set options third-party lib
   toastrConfig.allowHtml = true;

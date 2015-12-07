@@ -17,6 +17,28 @@
       </div>
     </div>
   </div>
+  <div class="col-lg-4">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title" ng-click="vm.showShareDialog=!vm.showShareDialog">Share your lot</h3>
+      </div>
+      <div class="panel-body">
+            <button class="btn btn-success" ng-if="!vm.showShareDialog" ng-click="vm.showShareDialog=!vm.showShareDialog">Click to expand</button>
+            <button class="btn btn-warning" ng-click="vm.takeSpotBack()">Take parking back!</button>
+            <form ng-class="{'expanded':vm.showShareDialog, 'collapsed':!vm.showShareDialog}" ng-submit="vm.shareSpot(vm.lot)">
+              <div class="form-group">
+                <label for="startTime">It's free from:</label>
+                <input ng-model="vm.lot.freeFrom" class="form-control" type="date" id="startTime"/>
+              </div>
+              <div class="form-group">
+                <label for="endTime">You're back on:</label>
+                <input ng-model="vm.lot.freeTill" class="form-control" type="date" id="endTime" required/>
+              </div>
+              <button type="submit" class="btn btn-block btn-primary">Share</button>
+            </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="panel panel-default" ng-if="!vm.parkingAvailabilityData.length">
@@ -24,7 +46,7 @@
 </div>
 
 <div class="row availability-list" ng-if="vm.parkingAvailabilityData.length">
-  <div class="col-xs-12 col-lg-3" ng-repeat="lot in vm.parkingAvailabilityData">
+  <div class="col-xs-12 col-lg-3" ng-repeat="lot in vm.parkingAvailabilityData" ng-if="!lot.currentlyUsed">
     <a class="btn btn-block btn-md"
        ng-click="vm.reserve(lot)"
        ng-class="{'btn-default': vm.isLoading(lot), 'btn-success': !vm.isLoading(lot)}"

@@ -10,10 +10,9 @@ import { AvailabilityDirective } from "../app/components/availability/availabili
 
 angular.module("parkingLots", ["ngResource", "ngRoute", "ui.bootstrap", "toastr"])
   .constant("moment", moment)
-  .constant("AvailabilityConstant", new AvailabilityConstant())
   .config(config)
+  .constant("AvailabilityConstant", new AvailabilityConstant())
   .config(routerConfig)
-  .run(runBlock)
   .service("AvailabilityService", AvailabilityService)
   .controller("MainController", MainController)
   .directive("availability", AvailabilityDirective);
