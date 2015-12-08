@@ -1,7 +1,7 @@
 export function AvailabilityConstant() {
   "ngInject";
 
-  let domain = "http://devone.lt:8087/",
+  let domain = "http://parking.devone.lt/api/",
       URI = {
         "list": "parking/available",
         "reserve": "parking/reserved"
