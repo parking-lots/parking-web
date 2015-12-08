@@ -1,13 +1,15 @@
 export function runBlock ($rootScope, $location, $cookies, $http) {
   "ngInject";
 
-  $rootScope.globals = $cookies.get("globals") || {};
-    if ($rootScope.globals.currentUser) {
-    $http.defaults.headers.common["Authorization"] = "Basic " + $rootScope.globals.currentUser.authdata;
+
+  if (angular.isDefined($cookies.get("globals"))) {
+    let authdata = $cookies.get("globals");
+    $http.defaults.headers.common["Authorization"] = "Basic " + authdata;
   }
 
   $rootScope.$on("$locationChangeStart", function (event, next, current) {
-    if ($location.path() !== "/login" && !$rootScope.globals.currentUser) {
+    let authdataClear = angular.isUndefined($cookies.get("globals"));
+    if ($location.path() !== "/login" && authdataClear) {
       console.log("Redirecting to login...");
       $location.path("/login");
     }

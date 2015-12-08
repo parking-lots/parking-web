@@ -1,5 +1,5 @@
 export class AvailabilityService {
-  constructor ($resource, moment, AvailabilityConstant, $http) {
+  constructor ($resource, moment, AvailabilityConstant) {
     "ngInject";
     this.moment = moment;
 
@@ -12,26 +12,23 @@ export class AvailabilityService {
   freeUpLot(lot, days = 1) {
     lot.freeFrom = this.moment(new Date).format("YYYY-MM-DD");
     lot.freeTill = this.moment(new Date).add(days, 'days').format("YYYY-MM-DD");
-    console.log("Updating");
     return this.getResource("reserve").freeup(lot).$promise;
   }
 
   shareSpot(lot) {
-    return this.getResource().update(lot).$promise.then(function() {
-      document.location.reload(false);
-    })
+    return this.getResource().update(lot).$promise.then(this.getAvailability())
   }
 
   takeSpotBack() {
-    return this.getResource().freeup().$promise.then(function() {
-      document.location.reload(false);
-    })
+    return this.getResource().freeup().$promise.then(this.getAvailability())
   }
 
   reserveFreeSpot(lot) {
-      return this.getResource("reserve").update(lot).$promise.then(function(){
-        document.location.reload(false);
-      })
+      return this.getResource("reserve").update(lot).$promise.then(this.getAvailability())
+  }
+
+  reset() {
+
   }
 
   findCurrentLot() {

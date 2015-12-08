@@ -22,6 +22,5 @@ angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCoo
   .directive("availability", AvailabilityDirective);
 
 angular.module('Authentication', [])
-  .service("Base64", Base64)
   .service("AuthenticationService", AuthenticationService)
   .controller("LoginController", LoginController);

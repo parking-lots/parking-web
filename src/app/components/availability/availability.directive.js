@@ -20,8 +20,6 @@ class AvailabilityController {
     AvailabilityService.findCurrentLot().then( lot => { this.currentLot = lot; } );
 
     this.loading = [];
-
-    //this.relativeDate = moment(this.creationDate).fromNow();
   }
 
   setAvailabilityData() {
@@ -56,9 +54,6 @@ class AvailabilityController {
   }
 
   freeUpLot(lot) {
-    this.AvailabilityService.freeUpLot(lot).then( _ => { this.setAvailabilityData(); delete this.currentLot }
-    ).catch( response => { //wtf
-      console.log(response);
-    } );
+    this.AvailabilityService.freeUpLot(lot).then( _ => { this.setAvailabilityData(); delete this.currentLot });
   }
 }
