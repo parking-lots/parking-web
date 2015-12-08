@@ -1,12 +1,23 @@
 export class AuthenticationService {
-  constructor (Base64, $http, $cookieStore, $rootScope, $timeout) {
+  constructor (Base64, $http, $resource, $cookies, $rootScope, $timeout) {
     "ngInject";
 
     this.http = $http;
     this.rootScope = $rootScope;
     this.Base64 = Base64;
-    this.cookieStore = $cookieStore;
+    this.cookies = $cookies;
     this.timeout = $timeout;
+    this.getResource = (scope = "list") =>
+      $resource(
+        AvailabilityService.getUri(scope), null, {
+          "update": {
+            "method": "PUT"
+          },
+          "freeup": {
+            "method": "DELETE"
+          }
+        }
+      );
 
   }
 
@@ -14,9 +25,9 @@ export class AuthenticationService {
     /* Dummy authentication for testing, uses $timeout to simulate api call
      ----------------------------------------------*/
     this.timeout(function() {
-      var response = { success: username === 'test' && password === 'test' };
+      var response = { success: username === "karolis" && password === "karolis" }; // Get all available users + pwd combos
       if(!response.success) {
-        response.message = 'Username or password is incorrect';
+        response.message = "Username or password is incorrect";
       }
       callback(response);
     }, 1000);
@@ -25,7 +36,7 @@ export class AuthenticationService {
     // change http to ng resource
     /* Use this for real authentication
      ----------------------------------------------*/
-    //$http.post('/api/authenticate', { username: username, password: password })
+    //$http.post("/api/authenticate", { username: username, password: password })
     //    .success(function (response) {
     //        callback(response);
     //    });
@@ -41,13 +52,13 @@ export class AuthenticationService {
       }
     };
 
-    this.http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
-    this.cookieStore.put('globals', this.rootScope.globals);
+    this.http.defaults.headers.common["Authorization"] = "Basic " + authdata;
+    this.cookies.put("globals", JSON.stringify(this.rootScope.globals));
   }
 
-  clearCredentials() {
+    clearCredentials() {
     this.rootScope.globals = {};
-    this.cookieStore.remove('globals');
-    this.http.defaults.headers.common.Authorization = 'Basic ';
+    this.cookies.remove("globals");
+    this.http.defaults.headers.common.Authorization = "Basic ";
   }
 }

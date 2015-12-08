@@ -1,6 +1,9 @@
 export class LoginController {
+
   constructor ($location, AuthenticationService) {
     "ngInject";
+
+    this.SUCCESS_PATH = "/";
 
     this.location = $location;
     this.AuthenticationService = AuthenticationService;
@@ -8,13 +11,11 @@ export class LoginController {
   }
 
   login() {
-    let SUCCESS_PATH = "/";
-
     this.dataLoading = true;
     this.AuthenticationService.login(form.username.value, form.password.value, response => {
       if(response.success) {
         this.AuthenticationService.setCredentials(form.username.value, form.password.value);
-        this.location.path(SUCCESS_PATH);
+        this.location.path(this.SUCCESS_PATH);
       } else {
         this.error = response.message;
         this.dataLoading = false;

@@ -1,10 +1,11 @@
 export class AvailabilityService {
-  constructor ($resource, moment, AvailabilityConstant, $http) {
+  constructor ($resource, moment) {
     "ngInject";
     this.moment = moment;
 
-    this.getResource = (scope = "list") => $resource(AvailabilityConstant.getUri(scope), null, {"update": { "method": "PUT" }, "freeup": {"method":"DELETE"}});
-}
+    this.getResource = (scope = "list") => $resource(AvailabilityService.getUri(scope), null, {"update": { "method": "PUT" }, "freeup": {"method":"DELETE"}});
+  }
+
   getAvailability() {
     return this.getResource().query();
   }
@@ -36,5 +37,14 @@ export class AvailabilityService {
 
   findCurrentLot() {
     return this.getAvailability().$promise.then( lots => lots.filter( lot => !!lot.currentlyUsed )[0] );
+  }
+
+  static getUri(scope = "list") {
+    let domain = "http://parking.devone.lt/api/",
+      URI = {
+        "list": "parking/available",
+        "reserve": "parking/reserved"
+      };
+    return domain.concat(URI[scope]);
   }
 }
