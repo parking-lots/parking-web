@@ -56,7 +56,7 @@ export class AuthenticationService {
     this.cookies.put("globals", JSON.stringify(this.rootScope.globals));
   }
 
-    clearCredentials() {
+  clearCredentials() {
     this.rootScope.globals = {};
     this.cookies.remove("globals");
     this.http.defaults.headers.common.Authorization = "Basic ";
