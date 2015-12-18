@@ -8,9 +8,7 @@ export class LoginController {
   }
 
   login() {
-    const SUCCESS_PATH = "/";
-    this.dataLoading = true;
-    this.AuthenticationService.setCredentials(form.username.value, form.password.value);
-    this.location.path(SUCCESS_PATH);
+    console.log("Login");
+    this.AuthenticationService.login(form.username.value, form.password.value).then(this.location.url("/"));
   }
 }

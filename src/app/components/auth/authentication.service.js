@@ -9,24 +9,13 @@ export class AuthenticationService {
 
   }
 
-  // login(username, password, callback) {
-  //   /* Dummy authentication for testing, uses $timeout to simulate api call
-  //    ----------------------------------------------*/
-  //   this.timeout(function() {
-  //     let response = { success: username === 'test' && password === 'test' };
-  //     if(!response.success) {
-  //       response.message = 'Username or password is incorrect';
-  //     }
-  //     callback(response);
-  //   }, 1000);
-  //
-  //
-  //    ----------------------------------------------*/
-  //   $http.post('http://parking.devone.lt/api/authenticate', { username: username, password: password })
-  //       .success(function (response) {
-  //         callback(response);
-  //       });
-  // }
+  login(username, password) {
+    let request = {
+      "username": username,
+      "password": password
+    }
+      return this.http.post("http://parking.devone.lt/api/user/login", request);
+  }
 
   setCredentials(username, password) {
     let authdata = window.btoa(username + ":" + password);
