@@ -10,6 +10,7 @@ export class AuthenticationService {
   }
 
   login(username, password) {
+    console.log(this.http.defaults.headers);
     let request = {
       "username": username,
       "password": password
@@ -30,6 +31,6 @@ export class AuthenticationService {
 
   clearCredentials() {
     this.cookies.remove('globals');
-    this.http.defaults.headers.common.Authorization = 'Basic ';
+    this.http.defaults.headers.common.Authorization = 'Basic';
   }
 }
