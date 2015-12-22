@@ -4,7 +4,7 @@ export class AvailabilityService {
     this.moment = moment;
 
     this.getResource = (scope = "list") => $resource(AvailabilityConstant.getUri(scope), null, {"update": { "method": "PUT" }, "freeup": {"method":"DELETE"}});
-}
+  }
   getAvailability() {
     return this.getResource().query();
   }
@@ -24,7 +24,7 @@ export class AvailabilityService {
   }
 
   reserveFreeSpot(lot) {
-      return this.getResource("reserve").update(lot).$promise.then(this.getAvailability())
+    return this.getResource("reserve").update(lot).$promise.then(this.getAvailability())
   }
 
   reset() {
