@@ -34,6 +34,10 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
 // injector
 // endinjector
 
+body {
+  background: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/geometry.png") 0 0 repeat;
+}
+
 .buffer-top {
   margin-top: 15px;
 }

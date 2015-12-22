@@ -1,6 +1,21 @@
 <div class="row">
   <div class="col-lg-4">
-    <div class="panel panel-success">
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left" style="margin-top: 6px;">Profile</h3> <!-- do not worry, it's just a temp workaround -->
+        <button class="btn btn-danger pull-right" ng-click="vm.takeSpotBack()">Logout</button>
+      </div>
+      <div class="panel-body">
+        <div>
+          <p>Justin Cabbage</p><!-- make a service to fetch user profile -->
+          <p class="text-muted">Some report / history</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Currently reserved lot</h3>
       </div>
@@ -17,15 +32,15 @@
       </div>
     </div>
   </div>
+
   <div class="col-lg-4">
-    <div class="panel panel-success">
-      <div class="panel-heading">
-        <h3 class="panel-title" ng-click="vm.showShareDialog=!vm.showShareDialog">Share your lot</h3>
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left" style="margin-top: 6px;">Share your lot</h3> <!-- do not worry, it's just a temp workaround -->
+        <button class="btn btn-default pull-right" ng-click="vm.takeSpotBack()">Take parking back!</button>
       </div>
       <div class="panel-body">
-            <button class="btn btn-success" ng-if="!vm.showShareDialog" ng-click="vm.showShareDialog=!vm.showShareDialog">Click to expand</button>
-            <button class="btn btn-warning" ng-click="vm.takeSpotBack()">Take parking back!</button>
-            <form ng-class="{'expanded':vm.showShareDialog, 'collapsed':!vm.showShareDialog}" ng-submit="vm.shareSpot(vm.lot)">
+            <form class="expanded" ng-submit="vm.shareSpot(vm.lot)">
               <div class="form-group">
                 <label for="startTime">It's free from:</label>
                 <input ng-model="vm.lot.freeFrom" class="form-control" type="date" id="startTime"/>
