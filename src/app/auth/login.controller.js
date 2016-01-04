@@ -8,7 +8,17 @@ export class LoginController {
   }
 
   login() {
-    console.log("Login");
-    this.AuthenticationService.login(form.username.value, form.password.value).then(this.location.url("/"));
+    this.AuthenticationService.login(form.username.value, form.password.value)
+      .then( _=> this.onLoginSuccess())
+      .catch(response => this.onLoginError(response));
+  }
+
+  onLoginSuccess() {
+    this.error = null;
+    this.location.url("/");
+  }
+
+  onLoginError(response) {
+    this.error = response.data;
   }
 }

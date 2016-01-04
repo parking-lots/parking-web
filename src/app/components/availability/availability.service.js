@@ -3,7 +3,11 @@ export class AvailabilityService {
     "ngInject";
     this.moment = moment;
 
-    this.getResource = (scope = "list") => $resource(AvailabilityConstant.getUri(scope), null, {"update": { "method": "PUT" }, "freeup": {"method":"DELETE"}});
+    this.getResource = (scope = "list") => $resource(AvailabilityConstant.getUri(scope), null, {
+      "update": {"method": "PUT"},
+      "freeup": {"method": "DELETE"},
+      "logout": {"method": "DELETE"}
+    });
   }
   getAvailability() {
     return this.getResource().query();
@@ -33,5 +37,9 @@ export class AvailabilityService {
 
   findCurrentLot() {
     return this.getAvailability().$promise.then( lots => lots.filter( lot => !!lot.currentlyUsed )[0] );
+  }
+
+  logout() {
+    return this.getResource("logout").logout().$promise.then(this.getAvailability()); //@todo check if callback is necessary
   }
 }
