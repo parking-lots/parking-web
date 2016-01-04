@@ -4,7 +4,8 @@ export function AvailabilityConstant() {
   let domain = "http://parking.devone.lt/api/",
     URI = {
       "list": "parking/available",
-      "reserve": "parking/reserved"
+      "reserve": "parking/reserved",
+      "logout": "user/logout/"
     };
 
   this.getUri = function(scope = "list") {

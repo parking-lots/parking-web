@@ -11,10 +11,11 @@ export function AvailabilityDirective() {
 }
 
 class AvailabilityController {
-  constructor ($q, moment, AvailabilityService) {
+  constructor ($q, $location, moment, AvailabilityService) {
     "ngInject";
 
     this.q = $q;
+    this.location = $location;
     this.AvailabilityService = AvailabilityService;
     this.setAvailabilityData();
     AvailabilityService.findCurrentLot().then( lot => { this.currentLot = lot; } );
@@ -55,5 +56,21 @@ class AvailabilityController {
 
   freeUpLot(lot) {
     this.AvailabilityService.freeUpLot(lot).then( _ => { this.setAvailabilityData(); delete this.currentLot });
+  }
+
+  logout() {
+    this.AvailabilityService.logout()
+      .then( _=> this.onLogoutSuccess())
+      .catch(response => this.onLogoutError(response));
+  }
+
+  onLogoutSuccess() {
+    this.location.path("/login");
+  }
+
+  onLogoutError(response) {
+    if (response.data.message === "not_logged") {
+      this.location.path("/login");
+    }
   }
 }
