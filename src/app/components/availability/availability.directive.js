@@ -18,13 +18,24 @@ class AvailabilityController {
     this.location = $location;
     this.AvailabilityService = AvailabilityService;
     this.setAvailabilityData();
-    AvailabilityService.findCurrentLot().then( lot => { this.currentLot = lot; } );
 
     this.loading = [];
   }
 
   setAvailabilityData() {
-    this.parkingAvailabilityData = this.AvailabilityService.getAvailability();
+    this.AvailabilityService.getAvailability().$promise
+      .then( response => {
+        this.parkingAvailabilityData = response;
+        console.log(response);
+      });
+
+    this.AvailabilityService.findCurrentLot()
+      .then(lot => {
+        this.currentLot = lot;
+        console.log(lot);
+      });
+
+    this.AvailabilityService.getUserProfile().then(profile => this.profile = profile);
   }
 
   isLoading(lot) {
@@ -38,7 +49,7 @@ class AvailabilityController {
   }
 
   shareSpot(lot) {
-      this.AvailabilityService.shareSpot(this.lot);
+      this.AvailabilityService.shareSpot(lot);
   }
 
   takeSpotBack() {
@@ -50,12 +61,23 @@ class AvailabilityController {
   }
 
   reserve(lot) {
-    this.setLoading(lot);
-    this.AvailabilityService.reserveFreeSpot(lot);
+    if (!lot.currentlyUsed) {
+      this.setLoading(lot);
+      this.AvailabilityService.reserveFreeSpot(lot)
+        .then( _=> {
+          this.setAvailabilityData();
+          this.resetLoading();
+        })
+        .catch( response => {
+          console.log("Failed to reserve free spot.");
+          console.log(response);
+        });
+    }
   }
 
   freeUpLot(lot) {
-    this.AvailabilityService.freeUpLot(lot).then( _ => { this.setAvailabilityData(); delete this.currentLot });
+    this.AvailabilityService.freeUpLot(lot)
+      .then( _=> { this.setAvailabilityData(); delete this.currentLot });
   }
 
   logout() {
