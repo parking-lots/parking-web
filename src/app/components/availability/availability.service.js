@@ -4,9 +4,9 @@ export class AvailabilityService {
     this.moment = moment;
 
     this.getResource = (scope = "list") => $resource(AvailabilityConstant.getUri(scope), null, {
-      "update": {"method": "PUT"},
-      "freeup": {"method": "DELETE"},
-      "logout": {"method": "DELETE"}
+      "get": {"method": "GET"},
+      "del": {"method": "DELETE"},
+      "update": {"method": "PUT"}
     });
   }
   getAvailability() {
@@ -16,7 +16,7 @@ export class AvailabilityService {
   freeUpLot(lot, days = 1) {
     lot.freeFrom = this.moment(new Date).format("YYYY-MM-DD");
     lot.freeTill = this.moment(new Date).add(days, 'days').format("YYYY-MM-DD");
-    return this.getResource("reserve").freeup(lot).$promise;
+    return this.getResource("reserve").del(lot).$promise;
   }
 
   shareSpot(lot) {
@@ -24,11 +24,20 @@ export class AvailabilityService {
   }
 
   takeSpotBack() {
-    return this.getResource().freeup().$promise.then(this.getAvailability())
+    return this.getResource().del().$promise
+      .then(response => {
+        this.getAvailability();
+        console.log(this.getAvailability());
+        console.log(response);
+      });
   }
 
   reserveFreeSpot(lot) {
-    return this.getResource("reserve").update(lot).$promise.then(this.getAvailability())
+    return this.getResource("reserve").update(lot).$promise.then(this.getAvailability());
+  }
+
+  getUserProfile() {
+    return this.getResource("profile").get().$promise;
   }
 
   reset() {
@@ -40,6 +49,6 @@ export class AvailabilityService {
   }
 
   logout() {
-    return this.getResource("logout").logout().$promise.then(this.getAvailability()); //@todo check if callback is necessary
+    return this.getResource("logout").del().$promise.then(this.getAvailability()); //@todo check if callback is necessary
   }
 }

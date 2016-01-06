@@ -5,7 +5,8 @@ export function AvailabilityConstant() {
     URI = {
       "list": "parking/available",
       "reserve": "parking/reserved",
-      "logout": "user/logout/"
+      "logout": "user/logout/",
+      "profile": "user/profile"
     };
 
   this.getUri = function(scope = "list") {
