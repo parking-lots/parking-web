@@ -27,6 +27,10 @@ class AvailabilityController {
       .then( response => {
         this.parkingAvailabilityData = response;
         console.log(response);
+      }).catch( response => {
+        if (response.status === 401) {
+          this.redirectToLogin();
+        }
       });
 
     this.AvailabilityService.findCurrentLot()
@@ -82,11 +86,11 @@ class AvailabilityController {
 
   logout() {
     this.AvailabilityService.logout()
-      .then( _=> this.onLogoutSuccess())
+      .then( _=> this.redirectToLogin())
       .catch(response => this.onLogoutError(response));
   }
 
-  onLogoutSuccess() {
+  redirectToLogin() {
     this.location.path("/login");
   }
 
