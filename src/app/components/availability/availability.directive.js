@@ -53,11 +53,11 @@ class AvailabilityController {
   }
 
   shareSpot(lot) {
-      this.AvailabilityService.shareSpot(lot);
+      this.AvailabilityService.shareSpot(lot).then(this.setAvailabilityData());
   }
 
   takeSpotBack() {
-    this.AvailabilityService.takeSpotBack();
+    this.AvailabilityService.takeSpotBack().then(this.setAvailabilityData());
   }
 
   resetLoading() {

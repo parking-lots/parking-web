@@ -8,7 +8,7 @@
       <div class="panel-body">
         <div>
           <p>Hi {{ vm.profile.fullName }}!</p>
-          <p class="text-muted" ng-if="vm.profile.parkingNumber">Your parking number is {{ vm.profile.parkingNumber }} in {{ vm.profile.flor }} floor.</p>
+          <p class="text-muted" ng-if="vm.profile.parkingNumber">Your parking number is <span class="badge">{{ vm.profile.parkingNumber }}</span> in <span class="badge">{{ vm.profile.flor }}</span> floor.</p>
         </div>
       </div>
     </div>
@@ -43,11 +43,22 @@
             <form class="expanded" ng-submit="vm.shareSpot(vm.lot)">
               <div class="form-group">
                 <label for="startTime">It's free from:</label>
-                <input ng-model="vm.lot.freeFrom" class="form-control" type="date" id="startTime"/>
+                <p class="input-group">
+                  <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeFrom" is-open="freeFromOpened" ng-init="freeFromOpened = false" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="freeFromOpened = !freeFromOpened"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+
               </div>
               <div class="form-group">
                 <label for="endTime">You're back on:</label>
-                <input ng-model="vm.lot.freeTill" class="form-control" type="date" id="endTime" required/>
+                <p class="input-group">
+                  <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeTill" is-open="freeTillOpened" ng-init="freeTillOpened = false" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="freeTillOpened = !freeTillOpened"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
               </div>
               <button type="submit" class="btn btn-block btn-primary">Share</button>
             </form>

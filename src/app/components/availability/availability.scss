@@ -1,27 +1,8 @@
 .availability-list {
   > * {
     margin-bottom: 25px;
-
-
   }
 }
 availability {
-  .input-group-addon {
-    min-width: 140px;
-  }
-  form {
-    overflow:hidden;
-      max-height: 10px;
-      -webkit-transition: max-height 1s ease-in-out;
-      transition: max-height 1s ease-in-out;
-    &.collapsed {
-      * {
-        display:none;
-      }
-    }
-    &.expanded {
-      max-height:260px;
-    }
 
-  }
 }

@@ -10,6 +10,7 @@ export class AvailabilityService {
     });
   }
   getAvailability() {
+    console.log(this.getResource().query());
     return this.getResource().query();
   }
 
@@ -24,12 +25,7 @@ export class AvailabilityService {
   }
 
   takeSpotBack() {
-    return this.getResource().del().$promise
-      .then(response => {
-        this.getAvailability();
-        console.log(this.getAvailability());
-        console.log(response);
-      });
+    return this.getResource().del().$promise;
   }
 
   reserveFreeSpot(lot) {
