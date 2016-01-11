@@ -56,7 +56,7 @@ class AvailabilityController {
   shareSpot(lot) {
       this.AvailabilityService.shareSpot(lot).then(_=> {
         this.setAvailabilityData();
-        this.toastr.success("You have successfully reserved a lot");
+        this.toastr.success("You have successfully shared a lot.");
       });
   }
 
