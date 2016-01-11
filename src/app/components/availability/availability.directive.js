@@ -16,6 +16,7 @@ class AvailabilityController {
 
     this.q = $q;
     this.location = $location;
+    this.toastr = toastr;
     this.AvailabilityService = AvailabilityService;
     this.setAvailabilityData();
 
@@ -55,14 +56,14 @@ class AvailabilityController {
   shareSpot(lot) {
       this.AvailabilityService.shareSpot(lot).then(_=> {
         this.setAvailabilityData();
-        toastr.success("You have successfully reserved a lot");
+        this.toastr.success("You have successfully reserved a lot");
       });
   }
 
   takeSpotBack() {
     this.AvailabilityService.takeSpotBack().then(_=> {
       this.setAvailabilityData();
-      toastr.success("You have successfully taken spot back");
+      this.toastr.success("You have successfully taken spot back");
     });
   }
 
@@ -77,7 +78,7 @@ class AvailabilityController {
         .then( _=> {
           this.setAvailabilityData();
           this.resetLoading();
-          toastr.success("You have successfully reserved a lot");
+          this.toastr.success("You have successfully reserved a lot");
         })
         .catch( response => {
           console.log("Failed to reserve free spot.");
@@ -91,7 +92,7 @@ class AvailabilityController {
       .then( _=> {
         this.setAvailabilityData();
         delete this.currentLot;
-        toastr.success("You have set your lot as available for others to reserve");
+        this.toastr.success("You have set your lot as available for others to reserve");
       });
   }
 
