@@ -40,7 +40,7 @@
         <button class="btn btn-default pull-right" ng-click="vm.takeSpotBack()">Take parking back!</button>
       </div>
       <div class="panel-body">
-            <form class="expanded" name="shareSpotForm" ng-submit="shareSpotForm.$valid && vm.shareSpot(vm.lot)">
+            <form name="shareSpotForm" ng-submit="vm.shareSpot(vm.lot)">
               <div class="form-group" ng-class="{'has-error': shareSpotForm.freeFrom.$dirty && !shareSpotForm.freeFrom.$valid}">
                 <label for="startTime">It's free from:</label>
                 <p class="input-group">
@@ -70,7 +70,11 @@
                   </span>
                 </p>
               </div>
-              <button type="submit" class="btn btn-block btn-primary" ng-disabled="!shareSpotForm.$valid">Share</button>
+              <div class="btn-group pull-right">
+                <button type="button" class="btn btn-default" name="button" ng-click="vm.setShareLotDates(1)"><i class="glyphicon glyphicon-time"></i> +1d</button>
+                <button type="button" class="btn btn-default" name="button" ng-click="vm.setShareLotDates(7)"><i class="glyphicon glyphicon-time"></i> +1w</button>
+                <button type="submit" class="btn" ng-class="{'btn-default': shareSpotForm.$invalid, 'btn-primary': shareSpotForm.$valid}" ng-disabled="shareSpotForm.$invalid">Share</button>
+              </div>
             </form>
       </div>
     </div>
@@ -91,6 +95,7 @@
       <span ng-if="!vm.isLoading(lot)">
         {{ lot.number }}
       <span ng-if="lot.floor">({{ lot.floor }})</span>
+      <small class="badge" style="font-size: 10px;">{{ lot.owner }}</small>
       </span>
     </a>
   </div>

@@ -16,9 +16,14 @@ class AvailabilityController {
 
     this.q = $q;
     this.location = $location;
+    this.moment = moment;
     this.toastr = toastr;
     this.AvailabilityService = AvailabilityService;
     this.setAvailabilityData();
+
+    this.lot = {};
+    this.lot.freeFrom = "";
+    this.lot.freeTill = "";
 
     this.loading = [];
   }
@@ -54,10 +59,14 @@ class AvailabilityController {
   }
 
   shareSpot(lot) {
-      this.AvailabilityService.shareSpot(lot).then(_=> {
-        this.setAvailabilityData();
-        this.toastr.success("You have successfully shared a lot.");
-      });
+    console.log(lot);
+      this.toastr.success("You have successfully shared your lot.");
+      this.resetShareLotForm();
+      // this.AvailabilityService.shareSpot(lot).then(_=> {
+      //   this.setAvailabilityData();
+      //    this.resetShareLotForm();
+      //   this.toastr.success("You have successfully shared your lot.");
+      // });
   }
 
   takeSpotBack() {
@@ -110,5 +119,15 @@ class AvailabilityController {
     if (response.data.message === "not_logged") {
       this.location.path("/login");
     }
+  }
+
+  setShareLotDates(days, form) {
+    this.lot.freeFrom = this.moment().add(1, "days").format("YYYY-MM-DD");
+    this.lot.freeTill = this.moment().add(++days, "days").format("YYYY-MM-DD");
+  }
+
+  resetShareLotForm() {
+    this.lot.freeFrom = "";
+    this.lot.freeTill = "";
   }
 }
