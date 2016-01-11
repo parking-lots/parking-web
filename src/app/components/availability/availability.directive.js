@@ -118,7 +118,7 @@ class AvailabilityController {
     }
   }
 
-  setShareLotDates(days, form) {
+  setShareLotDates(days) {
     this.lot.freeFrom = this.moment().add(1, "days").format("YYYY-MM-DD");
     this.lot.freeTill = this.moment().add(++days, "days").format("YYYY-MM-DD");
   }
