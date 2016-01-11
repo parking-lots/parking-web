@@ -59,14 +59,11 @@ class AvailabilityController {
   }
 
   shareSpot(lot) {
-    console.log(lot);
-      this.toastr.success("You have successfully shared your lot.");
-      this.resetShareLotForm();
-      // this.AvailabilityService.shareSpot(lot).then(_=> {
-      //   this.setAvailabilityData();
-      //    this.resetShareLotForm();
-      //   this.toastr.success("You have successfully shared your lot.");
-      // });
+      this.AvailabilityService.shareSpot(lot).then(_=> {
+        this.setAvailabilityData();
+         this.resetShareLotForm();
+        this.toastr.success("You have successfully shared your lot.");
+      });
   }
 
   takeSpotBack() {
