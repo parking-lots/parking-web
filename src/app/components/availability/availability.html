@@ -40,27 +40,37 @@
         <button class="btn btn-default pull-right" ng-click="vm.takeSpotBack()">Take parking back!</button>
       </div>
       <div class="panel-body">
-            <form class="expanded" ng-submit="vm.shareSpot(vm.lot)">
-              <div class="form-group">
+            <form class="expanded" name="shareSpotForm" ng-submit="shareSpotForm.$valid && vm.shareSpot(vm.lot)">
+              <div class="form-group" ng-class="{'has-error': shareSpotForm.freeFrom.$dirty && !shareSpotForm.freeFrom.$valid}">
                 <label for="startTime">It's free from:</label>
                 <p class="input-group">
-                  <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeFrom" is-open="freeFromOpened" ng-init="freeFromOpened = false" />
+                  <input type="text" class="form-control"
+                  datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeFrom"
+                  is-open="freeFromOpened" ng-init="freeFromOpened = false"
+                  name="freeFrom"
+                  required
+                  />
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="freeFromOpened = !freeFromOpened"><i class="glyphicon glyphicon-calendar"></i></button>
                   </span>
                 </p>
 
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-class="{'has-error': shareSpotForm.freeTill.$dirty && !shareSpotForm.freeTill.$valid}">
                 <label for="endTime">You're back on:</label>
                 <p class="input-group">
-                  <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeTill" is-open="freeTillOpened" ng-init="freeTillOpened = false" />
+                  <input type="text" class="form-control"
+                  datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeTill"
+                  is-open="freeTillOpened" ng-init="freeTillOpened = false"
+                  name="freeTill"
+                  required
+                  />
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="freeTillOpened = !freeTillOpened"><i class="glyphicon glyphicon-calendar"></i></button>
                   </span>
                 </p>
               </div>
-              <button type="submit" class="btn btn-block btn-primary">Share</button>
+              <button type="submit" class="btn btn-block btn-primary" ng-disabled="!shareSpotForm.$valid">Share</button>
             </form>
       </div>
     </div>
