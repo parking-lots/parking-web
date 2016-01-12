@@ -33,7 +33,11 @@ export class AvailabilityService {
   }
 
   getUserProfile() {
-    return this.getResource("profile").get().$promise;
+    return this.getResource("profile").get().$promise.then(this.getAvailability());
+  }
+
+  changePassword(newPassword) {
+    return this.getResource("change/password").update(newPassword).$promise.then(this.getAvailability());
   }
 
   reset() {

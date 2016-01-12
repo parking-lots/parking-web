@@ -6,6 +6,7 @@ export function AvailabilityConstant() {
       "list": "parking/available",
       "reserve": "parking/reserved",
       "logout": "user/logout/",
+      "change/password": "profile/password",
       "profile": "/profile"
     };
 

@@ -14,6 +14,18 @@
           </p>
         </div>
       </div>
+      <div class="panel-body">
+        <form name="changePasswordForm" ng-submit="vm.changePassword()">
+          <div class="form-group">
+            <label for="newPassword">New password (min 6 max 10 characters)</label>
+            <input type="password" name="newPassword" id="newPassword" class="form-control" ng-model="vm.changePasswordForm.newPassword" required/>
+            <span ng-show="changePasswordForm.newPassword.$dirty && changePasswordForm.newPassword.$error.required" class="help-block">Password is required</span>
+          </div>
+          <div class="form-actions">
+            <button type="submit" ng-disabled="changePasswordForm.$invalid" class="btn" ng-class="{'btn-default': changePasswordForm.$invalid, 'btn-primary': changePasswordForm.$valid}">Change</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 

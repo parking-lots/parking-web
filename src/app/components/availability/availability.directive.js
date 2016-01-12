@@ -24,6 +24,8 @@ class AvailabilityController {
     this.lot = {};
     this.lot.freeFrom = "";
     this.lot.freeTill = "";
+    this.changePasswordForm = {};
+    this.changePasswordForm.newPassword = "";
 
     this.loading = [];
   }
@@ -126,5 +128,18 @@ class AvailabilityController {
   resetShareLotForm() {
     this.lot.freeFrom = "";
     this.lot.freeTill = "";
+  }
+
+
+  changePassword(password) {
+    console.log(this.changePasswordForm);
+    this.AvailabilityService.changePassword(this.changePasswordForm)
+      .then(result  => {
+        this.toastr.success("Your password changed successfully");
+        this.changePasswordForm.newPassword = "";
+      }).catch(response => {
+        console.log(response);
+        this.toastr.error(response.data.errors[0].message);
+      });
   }
 }
