@@ -41,7 +41,7 @@ export class AvailabilityService {
   }
 
   findCurrentLot() {
-    return this.getAvailability().$promise.then( lots => lots.filter( lot => !!lot.currentlyUsed )[0] );
+    return this.getAvailability().$promise.then( lots => lots.filter( lot => !!lot.user )[0] );
   }
 
   logout() {

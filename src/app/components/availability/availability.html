@@ -8,7 +8,10 @@
       <div class="panel-body">
         <div>
           <p>Hi {{ vm.profile.fullName }}!</p>
-          <p class="text-muted" ng-if="vm.profile.parkingNumber">Your parking number is <span class="badge">{{ vm.profile.parkingNumber }}</span> in <span class="badge">{{ vm.profile.flor }}</span> floor.</p>
+          <p class="text-muted" ng-if="vm.profile.parking">
+            <p>Your parking number is <span class="badge">{{ vm.profile.parking.number }}</span> in <span class="badge">{{ vm.profile.parking.floor }}</span> floor.</p>
+            <p ng-if="vm.profile.parking.freeTill">You parking shared till <span class="badge">{{ vm.profile.parking.freeTill }}</span></p>
+          </p>
         </div>
       </div>
     </div>
@@ -23,7 +26,7 @@
         <div ng-if="vm.currentLot">
           <strong>Number:</strong> {{ vm.currentLot.number }}<br>
           <strong>Floor:</strong> {{ vm.currentLot.floor }}<br>
-          <strong>Owner:</strong> {{ vm.currentLot.owner }}<br><br>
+          <strong>Owner:</strong> {{ vm.currentLot.owner.fullName }}<br><br>
           <div>
             <a class="btn btn-sm btn-primary" ng-click="vm.freeUpLot(vm.currentLot)">Free Up</a>
           </div>
@@ -33,7 +36,7 @@
     </div>
   </div>
 
-  <div class="col-lg-4" ng-if="vm.profile.parkingNumber">
+  <div class="col-lg-4" ng-if="vm.profile.parking">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left" style="margin-top: 6px;">Share your lot</h3> <!-- do not worry, it's just a temp workaround -->
@@ -88,14 +91,14 @@
   <div class="col-xs-12 col-lg-3" ng-repeat="lot in vm.parkingAvailabilityData">
     <a class="btn btn-block btn-md"
        ng-click="vm.reserve(lot)"
-       ng-class="{'btn-default': !!lot.currentlyUsed || vm.isLoading(lot), 'btn-success': !lot.currentlyUsed && !vm.isLoading(lot)}"
-       ng-disabled="vm.isLoading(lot) || !!lot.currentlyUsed"
+       ng-class="{'btn-default': !!lot.user || vm.isLoading(lot), 'btn-success': !lot.user && !vm.isLoading(lot)}"
+       ng-disabled="vm.isLoading(lot) || !!lot.user"
     >
       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" ng-if="vm.isLoading(lot)"></span>
       <span ng-if="!vm.isLoading(lot)">
         {{ lot.number }}
       <span ng-if="lot.floor">({{ lot.floor }})</span>
-      <small class="badge" style="font-size: 10px;">{{ lot.owner }}</small>
+      <small class="badge" style="font-size: 10px;">{{ lot.owner.fullName }}</small>
       </span>
     </a>
   </div>

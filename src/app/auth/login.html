@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row buffer-top">
     <div class="col-lg-12">
-      <div ng-show="login.error" class="alert alert-danger">{{ login.error }}</div>
+      <div ng-show="login.error" class="alert alert-danger">{{ login.error.message }}</div>
       <form name="form" ng-submit="login.login()" role="form">
         <div class="form-group">
           <label for="username">Username</label>
