@@ -15,7 +15,7 @@ export class AuthenticationService {
       "username": username,
       "password": password
     };
-    return this.http.post("http://parking.devone.lt/api/user/login", request);
+    return this.http.post("http://parkinger.net/api/user/login", request);
   }
 
   setCredentials(username, password) {
