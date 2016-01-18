@@ -9,7 +9,7 @@
         <div>
           <p>Hi {{ vm.profile.fullName }}!</p>
           <p class="text-muted" ng-if="vm.profile.parking">
-            <p>Your parking number is <span class="badge">{{ vm.profile.parking.number }}</span> in <span class="badge">{{ vm.profile.parking.floor }}</span> floor.</p>
+            <p ng-if="vm.profile.parking">Your parking number is <span class="badge">{{ vm.profile.parking.number }}</span> in <span class="badge">{{ vm.profile.parking.floor }}</span> floor.</p>
             <p ng-if="vm.profile.parking.user">
               <span class="badge">{{ vm.profile.parking.user.fullName }}</span> took your parking spot
             </p>
