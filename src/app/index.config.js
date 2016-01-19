@@ -1,8 +1,10 @@
-export function config ($logProvider, toastrConfig, $httpProvider) {
+export function config ($logProvider, toastrConfig, $httpProvider, $locationProvider) {
   "ngInject";
   // Enable log
   $logProvider.debugEnabled(true);
   $httpProvider.defaults.withCredentials = true;
+
+  $locationProvider.html5Mode(true);
 
   // Set options third-party lib
   toastrConfig.allowHtml = true;
