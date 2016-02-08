@@ -34,7 +34,6 @@ class AvailabilityController {
     this.AvailabilityService.getAvailability().$promise
       .then( response => {
         this.parkingAvailabilityData = response;
-        console.log(response);
       }).catch( response => {
         if (response.status === 401) {
           this.redirectToLogin();
@@ -44,7 +43,6 @@ class AvailabilityController {
     this.AvailabilityService.findCurrentLot()
       .then(lot => {
         this.currentLot = lot;
-        console.log(lot);
       });
 
     this.AvailabilityService.getUserProfile().then(profile => this.profile = profile);
@@ -89,8 +87,7 @@ class AvailabilityController {
           this.toastr.success("You have successfully reserved a lot");
         })
         .catch( response => {
-          console.log("Failed to reserve free spot.");
-          console.log(response);
+          console.error("Failed to reserve free spot.", response);
         });
     }
   }
@@ -132,13 +129,11 @@ class AvailabilityController {
 
 
   changePassword(password) {
-    console.log(this.changePasswordForm);
     this.AvailabilityService.changePassword(this.changePasswordForm)
       .then(result  => {
         this.toastr.success("Your password changed successfully");
         this.changePasswordForm.newPassword = "";
       }).catch(response => {
-        console.log(response);
         this.toastr.error(response.data.errors[0].message);
       });
   }

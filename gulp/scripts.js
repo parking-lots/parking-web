@@ -4,7 +4,7 @@ var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
 
-var browserSync = require('browser-sync');
+var livereload = require('gulp-livereload');
 var webpack = require('webpack-stream');
 
 var $ = require('gulp-load-plugins')();
@@ -34,7 +34,7 @@ function webpackWrapper(watch, test, callback) {
       hash: false,
       version: false
     }));
-    browserSync.reload();
+    livereload.reload();
     if(watch) {
       watch = false;
       callback();

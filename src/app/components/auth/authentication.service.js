@@ -3,7 +3,6 @@ export class AuthenticationService {
     "ngInject";
 
     this.http = $http;
-    // this.Base64 = Base64;
     this.cookies = $cookies;
     this.timeout = $timeout;
 
