@@ -11,6 +11,6 @@ var proxyMiddleware = require('http-proxy-middleware');
 
 gulp.task('serve', ['watch'], () => {
     connect.server({
-        root:".."
+        root:"./.tmp/serve"
     });
 });

@@ -3,7 +3,6 @@
 import { config } from "./index.config";
 import { routerConfig } from "./index.route";
 import { runBlock } from "./index.run";
-import { Base64 } from "../app/components/auth/base64.factory";
 import { AuthenticationService } from "../app/components/auth/authentication.service";
 import { AvailabilityConstant } from "../app/components/availability/availability.constant";
 import { AvailabilityService } from "../app/components/availability/availability.service";
