@@ -3,8 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
-
-var browserSync = require('browser-sync');
+var livereload = require('gulp-livereload');
 
 var $ = require('gulp-load-plugins')();
 
@@ -13,7 +12,7 @@ var _ = require('lodash');
 
 gulp.task('styles-reload', ['styles'], function() {
   return buildStyles()
-    .pipe(browserSync.stream());
+    .pipe(livereload.reload());
 });
 
 gulp.task('styles', function() {
