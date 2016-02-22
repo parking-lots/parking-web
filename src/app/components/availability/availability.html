@@ -71,6 +71,7 @@
                 <p class="input-group">
                   <input type="text" class="form-control"
                   datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeFrom"
+                  datepicker-options="vm.datepickerOptions"
                   is-open="freeFromOpened" ng-init="freeFromOpened = false"
                   name="freeFrom"
                   required
@@ -86,6 +87,7 @@
                 <p class="input-group">
                   <input type="text" class="form-control"
                   datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeTill"
+                  datepicker-options="vm.datepickerOptions"
                   is-open="freeTillOpened" ng-init="freeTillOpened = false"
                   name="freeTill"
                   required

@@ -26,10 +26,12 @@ class AvailabilityController {
     this.lot.freeTill = "";
     this.changePasswordForm = {};
     this.changePasswordForm.newPassword = "";
-
-    this.loading = [];
-
+    this.changePasswordForm.newPasswordConfirm = "";
     this.showChangePassword = false;
+    this.datepickerOptions = {
+      "startingDay": 1
+    };
+    this.loading = [];
   }
 
   setAvailabilityData() {
