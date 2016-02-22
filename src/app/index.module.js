@@ -10,6 +10,7 @@ import { AvailabilityService } from "../app/components/availability/availability
 import { LoginController } from "./auth/login.controller";
 import { MainController } from "./main/main.controller";
 import { AvailabilityDirective } from "../app/components/availability/availability.directive";
+import { ProfileDirective } from "../app/components/profile/profile.directive";
 
 angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCookies", "ui.bootstrap", "toastr"])
   .constant("moment", moment)
@@ -19,7 +20,8 @@ angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCoo
   .run(runBlock)
   .service("AvailabilityService", AvailabilityService)
   .controller("MainController", MainController)
-  .directive("availability", AvailabilityDirective);
+  .directive("availability", AvailabilityDirective)
+  .directive("profile", ProfileDirective);
 
 angular.module('Authentication', [])
   .service("AuthenticationService", AuthenticationService)

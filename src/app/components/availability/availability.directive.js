@@ -84,7 +84,7 @@ class AvailabilityController {
   }
 
   reserve(lot) {
-    if (!lot.currentlyUsed && lot.user.username !== this.profile.username) {
+    if (!lot.currentlyUsed) {
       this.setLoading(lot);
       this.AvailabilityService.reserveFreeSpot(lot)
         .then( _=> {
