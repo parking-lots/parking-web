@@ -1,9 +1,10 @@
 <div class="row">
   <div class="col-lg-4" ng-if="vm.profile">
-    <div class="panel panel-default">
+    <div class="panel panel-default panel-user-profile">
       <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left" style="margin-top: 6px;">Profile</h3>
         <button class="btn btn-danger pull-right" ng-click="vm.logout()">Logout</button>
+        <button class="btn btn-secondary pull-right" ng-click="vm.showChangePasswordForm()" ng-if="!vm.showChangePassword">Change password</button>
       </div>
       <div class="panel-body">
         <div>
@@ -18,18 +19,20 @@
               <span class="badge">{{ vm.profile.parking.freeFrom }}</span>
               <span class="badge">{{ vm.profile.parking.freeTill }}</span>
             </p>
-          </p>
         </div>
       </div>
-      <div class="panel-body">
+      <div class="panel-body" ng-if="vm.showChangePassword">
         <form name="changePasswordForm" ng-submit="vm.changePassword()">
           <div class="form-group">
             <label for="newPassword">New password (min 6 max 10 characters)</label>
             <input type="password" name="newPassword" id="newPassword" class="form-control" ng-model="vm.changePasswordForm.newPassword" required/>
             <span ng-show="changePasswordForm.newPassword.$dirty && changePasswordForm.newPassword.$error.required" class="help-block">Password is required</span>
           </div>
+          <div class="form-group">
+            <input type="password" name="newPasswordConfirm" id="newPasswordConfirm" class="form-control" ng-model="vm.changePasswordForm.newPasswordConfirm" placeholder="Confirm your password" required/>
+          </div>
           <div class="form-actions">
-            <button type="submit" ng-disabled="changePasswordForm.$invalid" class="btn" ng-class="{'btn-default': changePasswordForm.$invalid, 'btn-primary': changePasswordForm.$valid}">Change</button>
+            <button type="submit" ng-disabled="changePasswordForm.$invalid || vm.changePasswordForm.newPassword !== vm.changePasswordForm.newPasswordConfirm" class="btn" ng-class="{'btn-default': changePasswordForm.$invalid, 'btn-primary': changePasswordForm.$valid}">Change</button>
           </div>
         </form>
       </div>

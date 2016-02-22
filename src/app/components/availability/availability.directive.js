@@ -28,6 +28,8 @@ class AvailabilityController {
     this.changePasswordForm.newPassword = "";
 
     this.loading = [];
+
+    this.showChangePassword = false;
   }
 
   setAvailabilityData() {
@@ -141,5 +143,9 @@ class AvailabilityController {
         console.log(response);
         this.toastr.error(response.data.errors[0].message);
       });
+  }
+
+  showChangePasswordForm() {
+    this.showChangePassword = true;
   }
 }
