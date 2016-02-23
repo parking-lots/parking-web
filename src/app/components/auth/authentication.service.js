@@ -1,21 +1,28 @@
 export class AuthenticationService {
-  constructor ($http, $cookies, $timeout) {
+  constructor ($http, ResourceService, $cookies, $timeout) {
     "ngInject";
 
     this.http = $http;
-    // this.Base64 = Base64;
+    this.ResourceService = ResourceService;
     this.cookies = $cookies;
     this.timeout = $timeout;
 
   }
 
   login(username, password) {
-    console.log(this.http.defaults.headers);
     let request = {
       "username": username,
       "password": password
     };
-    return this.http.post("http://parkinger.net/api/user/login", request);
+    return this.http.post("http://parkinger.net/api/user/login", request, function(data) {
+      console.log("LOGGED IN!");
+      console.log(data);
+      console.log("-------------------------");
+    });
+  }
+
+  logout() {
+
   }
 
   setCredentials(username, password) {

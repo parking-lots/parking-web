@@ -11,7 +11,7 @@ export function AvailabilityDirective() {
 }
 
 class AvailabilityController {
-  constructor ($q, $location, moment, toastr, AvailabilityService) {
+  constructor ($q, $location, moment, toastr, AvailabilityService, ResourceService) {
     "ngInject";
 
     this.q = $q;
@@ -19,6 +19,7 @@ class AvailabilityController {
     this.moment = moment;
     this.toastr = toastr;
     this.AvailabilityService = AvailabilityService;
+    this.ResourceService = ResourceService;
     this.setAvailabilityData();
 
     this.lot = {};
@@ -108,20 +109,8 @@ class AvailabilityController {
       });
   }
 
-  logout() {
-    this.AvailabilityService.logout()
-      .then( _=> this.redirectToLogin())
-      .catch(response => this.onLogoutError(response));
-  }
-
   redirectToLogin() {
     this.location.path("/login");
-  }
-
-  onLogoutError(response) {
-    if (response.data.message === "not_logged") {
-      this.location.path("/login");
-    }
   }
 
   setShareLotDates(days) {

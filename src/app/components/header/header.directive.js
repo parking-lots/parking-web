@@ -1,31 +1,42 @@
-export function ProfileDirective() {
+export function HeaderDirective() {
   "ngInject";
 
   return {
-    restrict: "A",
-    templateUrl: "app/components/profile/profile.html",
-    controller: ProfileController,
+    restrict: "E",
+    templateUrl: "app/components/header/header.html",
+    controller: HeaderController,
     controllerAs: "vm",
     bindToController: true
   };
 }
 
-class ProfileController {
-  constructor (AvailabilityService, toastr) {
+class HeaderController {
+  constructor ($scope, $location, ResourceService, EventsConstant, toastr) {
     "ngInject";
 
-    this.AvailabilityService = AvailabilityService;
+    this.ResourceService = ResourceService;
     this.toastr = toastr;
-    this.showProfile = false;
+    this.location = $location;
+    this.profile = false;
+
+    this.setProfileData();
+    $scope.$on(EventsConstant.LOGIN, angular.bind(this, this.onLogin));
+    $scope.$on(EventsConstant.LOGOUT, angular.bind(this, this.onLogout));
+  }
+
+  onLogin() {
     this.setProfileData();
   }
 
+  onLogout() {
+    this.logout();
+  }
+
   setProfileData() {
-    this.AvailabilityService.getUserProfile()
+    this.ResourceService.getUserProfile()
       .then(profile => {
         console.log(profile);
         this.profile = profile;
-        this.showProfile = true;
       })
       .catch(e => {
         console.log(e);
@@ -33,8 +44,11 @@ class ProfileController {
   }
 
   logout() {
-    this.AvailabilityService.logout()
-      .then( _=> this.redirectToLogin())
+    this.ResourceService.logout()
+      .then( _=> {
+        this.profile = false;
+        this.redirectToLogin()
+      })
       .catch(response => this.onLogoutError(response));
   }
 
@@ -50,7 +64,7 @@ class ProfileController {
 
   changePassword(password) {
     console.log(this.changePasswordForm);
-    this.AvailabilityService.changePassword(this.changePasswordForm)
+    this.ResourceService.changePassword(this.changePasswordForm)
       .then(result  => {
         this.toastr.success("Your password changed successfully");
         this.changePasswordForm.newPassword = "";
