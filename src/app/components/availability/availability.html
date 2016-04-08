@@ -13,11 +13,13 @@
             <p ng-if="vm.profile.parking.user">
               <span class="badge">{{ vm.profile.parking.user.fullName }}</span> took your parking spot
             </p>
-            <p ng-if="vm.profile.parking.freeTill">
+            <p ng-if="vm.profile.parking.availablePeriods">
               Parking shared
-              <span class="badge">{{ vm.profile.parking.freeFrom }}</span>
-              <span class="badge">{{ vm.profile.parking.freeTill }}</span>
+            <p ng-repeat="shared in vm.profile.parking.availablePeriods">
+              <span class="badge">{{ shared.freeFrom }}</span>
+              <span class="badge">{{ shared.freeTill }}</span>
             </p>
+          </p>
         </div>
       </div>
       <div class="panel-body" ng-if="vm.showChangePassword">
