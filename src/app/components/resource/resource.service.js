@@ -25,10 +25,11 @@ export class ResourceService {
     return this.resource(this.domain.concat(this.URI[uriSuffix]));
   }
 
-  login(username, password) {
+  login(username, password, remember) {
     let request = {
       "username": username,
-      "password": password
+      "password": password,
+      "remember": remember
     };
 
     return this.getResource("login").save(request).$promise.then(

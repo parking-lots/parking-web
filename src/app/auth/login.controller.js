@@ -8,7 +8,7 @@ export class LoginController {
   }
 
   login() {
-    this.ResourceService.login(form.username.value, form.password.value)
+    this.ResourceService.login(form.username.value, form.password.value, form.remember.value)
       .then( _=> { this.onLoginSuccess();
         console.log(_);
       })
