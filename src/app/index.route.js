@@ -2,6 +2,11 @@ export function routerConfig ($routeProvider) {
   "ngInject";
 
   $routeProvider
+    .when("/admin", {
+      templateUrl: "app/admin/admin.html",
+      controller: "AdminController",
+      controllerAs: "admin"
+    })
     .when("/login", {
       templateUrl: "app/auth/login.html",
       controller: "LoginController",
