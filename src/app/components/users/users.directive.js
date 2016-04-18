@@ -25,7 +25,7 @@ class UsersController {
         this.users = response;
         console.log(response);
       }).catch (response => {
-      if (response.status === 401) {
+      if (response.status === 401 || response.status === 403) {
         this.redirectToLogin();
       }
     });
