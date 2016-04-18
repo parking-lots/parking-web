@@ -7,8 +7,8 @@ export class LoginController {
     AuthenticationService.clearCredentials();
   }
 
-  login() {
-    this.ResourceService.login(form.username.value, form.password.value)
+  login(formdata) {
+    this.ResourceService.login(formdata.username, formdata.password, formdata.remember)
       .then( _=> { this.onLoginSuccess();
         console.log(_);
       })

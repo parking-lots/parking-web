@@ -9,10 +9,11 @@ export class AuthenticationService {
 
   }
 
-  login(username, password) {
+  login(username, password, remember) {
     let request = {
       "username": username,
-      "password": password
+      "password": password,
+      "remember": remember
     };
     return this.http.post("http://localhost:8085/user/login", request, function(data) {
       console.log("LOGGED IN!");
