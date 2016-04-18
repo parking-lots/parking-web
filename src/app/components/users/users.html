@@ -21,7 +21,11 @@
             <tr ng-repeat="user in vm.users | filter: searchKeyword">
               <td>{{ user.fullName }}</td>
               <td>{{ user.username }}</td>
-              <td>{{ user.role }}</td>
+              <td>
+                <span ng-repeat="role in user.roles">
+                  {{ $first ? '' : $last ? ' and ' : ', '}} {{ role }}
+                </span>
+              </td>
               <td>{{ user.number }}</td>
             </tr>
             </tbody>

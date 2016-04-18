@@ -32,6 +32,6 @@ class UsersController {
   }
 
   redirectToLogin() {
-    this.location.path("/login");
+    this.location.path("/");
   }
 }
