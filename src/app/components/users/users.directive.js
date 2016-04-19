@@ -11,10 +11,11 @@ export function UsersDirective() {
 }
 
 class UsersController {
-  constructor($location, UsersService) {
+  constructor($location, $modal, UsersService) {
     "ngInject";
 
     this.location = $location;
+    this.modal = $modal;
     this.UsersService = UsersService;
     this.setUsersData();
     this.showForm();
@@ -44,6 +45,16 @@ class UsersController {
       if (response.status === 401 || response.status === 403) {
         this.redirectToLogin();
       }
+    });
+  }
+
+  showNewUserForm() {
+    var modalInstance = this.modal.open({
+      templateUrl: './app/components/users/partials/newUser.html',
+      controller: 'NewUserController',
+      bindToController: true,
+      animation: true,
+      keyboard: true
     });
   }
 
