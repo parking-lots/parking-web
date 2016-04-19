@@ -25,11 +25,11 @@
     </div>
     <div class="form-group">
       <label for="number">Parking Lot Number</label>
-      <input type="number" name="number" id="number" class="form-control" ng-model="formData.number"/>
+      <input type="number" name="number" id="number" class="form-control" min="1" ng-model="formData.number" />
     </div>
     <div class="form-group">
       <label for="floor">Floor</label>
-      <input type="number" name="floor" id="floor" class="form-control" ng-model="formData.floor"/>
+      <input type="number" name="floor" id="floor" class="form-control" min="-2" max="1" ng-model="formData.floor" />
     </div>
   </div>
   <div class="modal-footer">
