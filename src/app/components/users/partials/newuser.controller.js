@@ -1,5 +1,5 @@
 export class NewUserController {
-  constructor ($location, $scope, $modalInstance, ResourceService) {
+  constructor($location, $scope, $modalInstance, ResourceService) {
     "ngInject";
 
     this.location = $location;
@@ -18,19 +18,19 @@ export class NewUserController {
 
     function addNewUser(formData) {
       ResourceService.createUser(formData.fullname, formData.username, formData.password, formData.number, formData.floor)
-        .then( response => {
+        .then(response => {
           onNewUserSuccess();
-        }).catch( response => {
-          onNewUserError(response);
-        });
+        }).catch(response => {
+        onNewUserError(response);
+      });
     }
 
-    function onNewUserError(response){
+    function onNewUserError(response) {
       console.log(response);
       console.log('error');
     }
 
-    function onNewUserSuccess(){
+    function onNewUserSuccess() {
       console.log("success");
       $uibModalInstance.dismiss('cancel');
     }

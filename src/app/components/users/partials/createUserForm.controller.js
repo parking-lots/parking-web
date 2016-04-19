@@ -1,8 +1,8 @@
 export class CreateNewUserController {
-  constructor ($location, AuthenticationService) {
+  constructor($location, AuthenticationService) {
     "ngInject";
 
-  console.log('labas');
+    console.log('labas');
 
     this.location = $location;
     this.AuthenticationService = AuthenticationService;
