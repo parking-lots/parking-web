@@ -13,7 +13,8 @@ export class ResourceService {
         "login": "user/login/",
         "logout": "user/logout/",
         "changePassword": "profile/password",
-        "profile": "profile"
+        "profile": "profile",
+        "createUser": "admin/user/create"
       };
   }
 
@@ -51,4 +52,24 @@ export class ResourceService {
     return this.getResource("change/password").update(newPassword).$promise.then(this.getAvailability());
 
   }
+
+  createUser(fullname, username, password, number, floor) {
+      let request = {
+      account:
+        {"fullName": fullname,
+        "username": username,
+        "password": password
+         },
+       parking:
+       {"number":number,
+       "floor": floor
+       }
+      };
+
+      return this.getResource("createUser").save(request).$promise.then(
+        _ => this.rootScope.$broadcast(this.EVENTS.CREATEUSER)
+      );
+    }
+
+
 }

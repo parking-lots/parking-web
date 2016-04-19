@@ -18,7 +18,7 @@ class UsersController {
     this.modal = $modal;
     this.UsersService = UsersService;
     this.setUsersData();
-    this.showForm();
+   // this.showForm();
   }
 
   showForm () {
@@ -60,5 +60,9 @@ class UsersController {
 
   redirectToLogin() {
     this.location.path("/");
+  }
+
+  test() {
+    console.log('working like acharm;)');
   }
 }
