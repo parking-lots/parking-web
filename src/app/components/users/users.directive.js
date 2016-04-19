@@ -17,7 +17,23 @@ class UsersController {
     this.location = $location;
     this.UsersService = UsersService;
     this.setUsersData();
+    this.showForm();
   }
+
+  showForm () {
+
+      var modalInstance = $ui.bootstrap.modal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'partials/createUserForm.html',
+        controller: 'CreateNewUserController',
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
+        }
+        })
+        }
+
 
   setUsersData() {
     this.UsersService.getUsers().$promise
