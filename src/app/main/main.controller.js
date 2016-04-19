@@ -13,4 +13,8 @@ export class MainController {
     this.AuthenticationService.clearCredentials();
     this.location.path(this.LOGIN_PATH);
   }
+
+  checkSession() {
+      this.location.url("/login");
+  }
 }

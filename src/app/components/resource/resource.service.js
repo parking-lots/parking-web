@@ -51,4 +51,11 @@ export class ResourceService {
     return this.getResource("change/password").update(newPassword).$promise.then(this.getAvailability());
 
   }
+
+  loginWithRememberMe() {
+    return this.getResource("login").get().$promise
+    .then(
+       _ => this.rootScope.$broadcast(this.EVENTS.LOGIN)
+    );
+  }
 }
