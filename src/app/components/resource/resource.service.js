@@ -53,6 +53,13 @@ export class ResourceService {
 
   }
 
+  loginWithRememberMe() {
+    return this.getResource("login").get().$promise
+    .then(
+       _ => this.rootScope.$broadcast(this.EVENTS.LOGIN)
+    );
+  }
+
   createUser(fullname, username, password, number, floor) {
       let request = {
       account:
