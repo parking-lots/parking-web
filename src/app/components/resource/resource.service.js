@@ -60,18 +60,29 @@ export class ResourceService {
     );
   }
 
+
   createUser(fullname, username, password, number, floor) {
-      let request = {
-      account:
-        {"fullName": fullname,
-        "username": username,
-        "password": password
-         },
-       parking:
-       {"number":number,
-       "floor": floor
-       }
-      };
+let request;
+ if (number != null){
+      request = {
+        account: {
+           "fullName": fullname,
+            "username": username,
+            "password": password
+          }, parking: {
+            "number":number,
+          "floor": floor
+         }
+       };}
+  else {
+    request = {
+        account:
+          {"fullName": fullname,
+          "username": username,
+          "password": password
+           }};
+  }
+
 
       return this.getResource("createUser").save(request).$promise.then(
         _ => this.rootScope.$broadcast(this.EVENTS.CREATEUSER)
