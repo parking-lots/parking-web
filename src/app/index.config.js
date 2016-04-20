@@ -11,6 +11,6 @@ export function config($logProvider, toastrConfig, $httpProvider, $locationProvi
   toastrConfig.allowHtml = true;
   toastrConfig.timeOut = 3000;
   toastrConfig.positionClass = "toast-top-right";
-  toastrConfig.preventDuplicates = true;
+  toastrConfig.preventDuplicates = false;
   toastrConfig.closeButton = true;
 }
