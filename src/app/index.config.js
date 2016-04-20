@@ -1,4 +1,4 @@
-export function config ($logProvider, toastrConfig, $httpProvider, $locationProvider, datepickerPopupConfig) {
+export function config($logProvider, toastrConfig, $httpProvider, $locationProvider, datepickerPopupConfig) {
   "ngInject";
   // Enable log
   $logProvider.debugEnabled(true);

@@ -10,7 +10,7 @@ export function AvailabilityConstant() {
       "profile": "/profile"
     };
 
-  this.getUri = function(scope = "list") {
+  this.getUri = function (scope = "list") {
     return domain.concat(URI[scope]);
   }
 

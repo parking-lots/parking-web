@@ -1,5 +1,5 @@
 export class AdminController {
-  constructor ($location, AuthenticationService) {
+  constructor($location, AuthenticationService) {
     "ngInject";
 
     this.LOGIN_PATH = "/login";

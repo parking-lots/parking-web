@@ -18,30 +18,29 @@ class UsersController {
     this.modal = $modal;
     this.UsersService = UsersService;
     this.setUsersData();
-   // this.showForm();
+    // this.showForm();
   }
 
-  showForm () {
-
-      var modalInstance = $ui.bootstrap.modal.open({
-        animation: $scope.animationsEnabled,
-        templateUrl: 'partials/createUserForm.html',
-        controller: 'CreateNewUserController',
-        resolve: {
-          items: function () {
-            return $scope.items;
-          }
+  showForm() {
+    var modalInstance = $ui.bootstrap.modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'partials/createUserForm.html',
+      controller: 'CreateNewUserController',
+      resolve: {
+        items: function () {
+          return $scope.items;
         }
-        })
-        }
+      }
+    })
+  }
 
 
   setUsersData() {
     this.UsersService.getUsers().$promise
-      .then( response => {
+      .then(response => {
         this.users = response;
         console.log(response);
-      }).catch (response => {
+      }).catch(response => {
       if (response.status === 401 || response.status === 403) {
         this.redirectToLogin();
       }

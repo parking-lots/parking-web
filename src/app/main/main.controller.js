@@ -1,5 +1,5 @@
 export class MainController {
-  constructor ($location, AuthenticationService) {
+  constructor($location, AuthenticationService) {
     "ngInject";
 
     this.LOGIN_PATH = "/login";
@@ -15,6 +15,6 @@ export class MainController {
   }
 
   checkSession() {
-      this.location.url("/login");
+    this.location.url("/login");
   }
 }

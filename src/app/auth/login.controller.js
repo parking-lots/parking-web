@@ -1,5 +1,5 @@
 export class LoginController {
-  constructor ($location, ResourceService, AuthenticationService) {
+  constructor($location, ResourceService, AuthenticationService) {
     "ngInject";
 
     this.location = $location;
@@ -11,7 +11,8 @@ export class LoginController {
 
   login(formdata) {
     this.ResourceService.login(formdata.username, formdata.password, formdata.remember)
-      .then( _=> { this.onLoginSuccess();
+      .then(_=> {
+        this.onLoginSuccess();
         console.log(_);
       })
       .catch(response => this.onLoginError(response));
@@ -33,10 +34,12 @@ export class LoginController {
 
   loginRememberMe() {
     this.ResourceService.loginWithRememberMe()
-    .then(_=> { this.onLoginSuccess();
-      console.log(_);})
-    .catch(response => {
-      this.onLoginError();
-    });
+      .then(_=> {
+        this.onLoginSuccess();
+        console.log(_);
+      })
+      .catch(response => {
+        this.onLoginError();
+      });
   }
 }

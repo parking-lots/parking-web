@@ -1,16 +1,16 @@
 export class NewUserController {
-  constructor ($location, $scope, $modalInstance, ResourceService, toastr) {
+  constructor($location, $scope, $modalInstance, toastr, ResourceService) {
     "ngInject";
 
     this.location = $location;
     this.scope = $scope;
     this.modalInstance = $modalInstance;
-    this.ResourceService = ResourceService;
-    this.modalWindow($scope, $modalInstance, ResourceService);
     this.toastr = toastr;
+    this.ResourceService = ResourceService;
+    this.modalWindow($scope, $modalInstance, toastr, ResourceService);
   }
 
-  modalWindow($scope, $uibModalInstance, ResourceService, toastr) {
+  modalWindow($scope, $uibModalInstance, toastr, ResourceService) {
     $scope.ok = function () {
       $uibModalInstance.dismiss();
     };
@@ -19,21 +19,19 @@ export class NewUserController {
 
     function addNewUser(formData) {
       ResourceService.createUser(formData.fullname, formData.username, formData.password, formData.number, formData.floor)
-        .then( response => {
+        .then(response => {
           onNewUserSuccess();
-        }).catch( response => {
-          onNewUserError(response);
-        });
+        }).catch(response => {
+        onNewUserError(response);
+      });
     }
 
-    function onNewUserError(response){
-      console.log(response);
-      console.log('error');
+    function onNewUserError(response) {
+      toastr.error(response.data.errors[0].message);
     }
 
-    function onNewUserSuccess(){
-      console.log("success");
-      toastr.success("User successfully created.");
+    function onNewUserSuccess() {
+      toastr.success("You have successfully added new user.");
       $uibModalInstance.dismiss('cancel');
     }
 

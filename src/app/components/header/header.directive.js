@@ -11,7 +11,7 @@ export function HeaderDirective() {
 }
 
 class HeaderController {
-  constructor ($scope, $location, ResourceService, EventsConstant, toastr) {
+  constructor($scope, $location, ResourceService, EventsConstant, toastr) {
     "ngInject";
 
     this.ResourceService = ResourceService;
@@ -45,7 +45,7 @@ class HeaderController {
 
   logout() {
     this.ResourceService.logout()
-      .then( _=> {
+      .then(_=> {
         this.profile = false;
         this.redirectToLogin()
       })
@@ -65,12 +65,12 @@ class HeaderController {
   changePassword(password) {
     console.log(this.changePasswordForm);
     this.ResourceService.changePassword(this.changePasswordForm)
-      .then(result  => {
+      .then(result => {
         this.toastr.success("Your password changed successfully");
         this.changePasswordForm.newPassword = "";
       }).catch(response => {
-        console.log(response);
-        this.toastr.error(response.data.errors[0].message);
-      });
+      console.log(response);
+      this.toastr.error(response.data.errors[0].message);
+    });
   }
 }

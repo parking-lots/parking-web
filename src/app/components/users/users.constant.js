@@ -7,7 +7,7 @@ export function UsersConstant() {
       "logout": "user/logout/"
     };
 
-  this.getUri = function(scope = "list") {
+  this.getUri = function (scope = "list") {
     return domain.concat(URI[scope]);
   }
 
