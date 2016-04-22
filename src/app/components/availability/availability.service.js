@@ -22,7 +22,7 @@ export class AvailabilityService {
   }
 
   shareSpot(lot) {
-    return this.getResource().update(lot).$promise.then(this.getAvailability())
+    return this.getResource().update(lot).$promise.then(this.getAvailability());
   }
 
   takeSpotBack() {

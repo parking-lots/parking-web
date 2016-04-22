@@ -70,7 +70,9 @@ class AvailabilityController {
       this.setAvailabilityData();
       this.resetShareLotForm();
       this.toastr.success("You have successfully shared your lot.");
-    });
+    }).catch(response => {
+                    this.toastr.error(response.data.message);
+                  });
   }
 
   takeSpotBack() {
