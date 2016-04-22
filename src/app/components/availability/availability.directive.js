@@ -141,4 +141,12 @@ class AvailabilityController {
   showChangePasswordForm() {
     this.showChangePassword = true;
   }
+
+  takeSingleSpotBack(parkingNumber, freeTill, freeFrom) {
+    this.ResourceService.takeSingleSpotBack(parkingNumber, freeFrom, freeTill).then(_=> {
+      this.setAvailabilityData();
+      this.toastr.success("Your have successfully taken spot back");
+    });
+  }
+
 }

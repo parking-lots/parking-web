@@ -22,6 +22,11 @@
           <p ng-repeat="shared in vm.profile.parking.availablePeriods">
             <span class="badge">{{ shared.freeFrom }}</span>
             <span class="badge">{{ shared.freeTill }}</span>
+            <span class="badge">
+              <a href="" ng-click="vm.takeSingleSpotBack(vm.profile.parking.number ,shared.freeFrom, shared.freeTill)">
+                <span class="glyphicon glyphicon-remove"></span>
+              </a>
+            </span>
           </p>
           </p>
         </div>
