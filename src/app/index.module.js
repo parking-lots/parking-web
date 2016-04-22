@@ -19,7 +19,7 @@ import {UsersDirective} from "../app/components/users/users.directive";
 import {AvailabilityDirective} from "../app/components/availability/availability.directive";
 import {HeaderDirective} from "../app/components/header/header.directive";
 
-angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCookies", "ui.bootstrap", "toastr", "ngMessages"])
+angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCookies", "ui.bootstrap", "toastr"])
   .constant("moment", moment)
   .config(config)
   .constant("EventsConstant", new EventsConstant())
