@@ -1,4 +1,4 @@
-export function config ($logProvider, toastrConfig, $httpProvider, $locationProvider, datepickerPopupConfig) {
+export function config($logProvider, toastrConfig, $httpProvider, $locationProvider, datepickerPopupConfig) {
   "ngInject";
   // Enable log
   $logProvider.debugEnabled(true);
@@ -11,6 +11,6 @@ export function config ($logProvider, toastrConfig, $httpProvider, $locationProv
   toastrConfig.allowHtml = true;
   toastrConfig.timeOut = 3000;
   toastrConfig.positionClass = "toast-top-right";
-  toastrConfig.preventDuplicates = true;
+  toastrConfig.preventDuplicates = false;
   toastrConfig.closeButton = true;
 }

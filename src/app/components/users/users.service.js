@@ -1,5 +1,5 @@
 export class UsersService {
-  constructor ($resource, moment, UsersConstant) {
+  constructor($resource, moment, UsersConstant) {
     "ngInject";
     this.moment = moment;
 

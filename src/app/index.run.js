@@ -1,3 +1,3 @@
-export function runBlock ($rootScope, $location, $cookies, $http) {
+export function runBlock($rootScope, $location, $cookies, $http) {
   "ngInject";
 }

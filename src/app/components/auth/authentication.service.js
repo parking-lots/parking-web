@@ -1,5 +1,5 @@
 export class AuthenticationService {
-  constructor ($http, ResourceService, $cookies, $timeout) {
+  constructor($http, ResourceService, $cookies, $timeout) {
     "ngInject";
 
     this.http = $http;
@@ -9,12 +9,13 @@ export class AuthenticationService {
 
   }
 
-  login(username, password) {
+  login(username, password, remember) {
     let request = {
       "username": username,
-      "password": password
+      "password": password,
+      "remember": remember
     };
-    return this.http.post("http://localhost:8085/user/login", request, function(data) {
+    return this.http.post("http://localhost:8085/user/login", request, function (data) {
       console.log("LOGGED IN!");
       console.log(data);
       console.log("-------------------------");

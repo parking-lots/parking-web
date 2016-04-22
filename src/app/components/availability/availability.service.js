@@ -1,5 +1,5 @@
 export class AvailabilityService {
-  constructor ($resource, moment, AvailabilityConstant) {
+  constructor($resource, moment, AvailabilityConstant) {
     "ngInject";
     this.moment = moment;
 
@@ -9,6 +9,7 @@ export class AvailabilityService {
       "update": {"method": "PUT"}
     });
   }
+
   getAvailability() {
     console.log(this.getResource().query());
     return this.getResource().query();
@@ -21,7 +22,7 @@ export class AvailabilityService {
   }
 
   shareSpot(lot) {
-    return this.getResource().update(lot).$promise.then(this.getAvailability())
+    return this.getResource().update(lot).$promise.then(this.getAvailability());
   }
 
   takeSpotBack() {
@@ -45,7 +46,7 @@ export class AvailabilityService {
   }
 
   findCurrentLot() {
-    return this.getAvailability().$promise.then( lots => lots.filter( lot => !!lot.user )[0] );
+    return this.getAvailability().$promise.then(lots => lots.filter(lot => !!lot.user)[0]);
   }
 
   logout() {

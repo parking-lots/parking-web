@@ -11,7 +11,7 @@ export function AvailabilityDirective() {
 }
 
 class AvailabilityController {
-  constructor ($q, $location, moment, toastr, AvailabilityService, ResourceService) {
+  constructor($q, $location, moment, toastr, AvailabilityService, ResourceService) {
     "ngInject";
 
     this.q = $q;
@@ -37,14 +37,14 @@ class AvailabilityController {
 
   setAvailabilityData() {
     this.AvailabilityService.getAvailability().$promise
-      .then( response => {
+      .then(response => {
         this.parkingAvailabilityData = response;
         console.log(response);
-      }).catch( response => {
-        if (response.status === 401) {
-          this.redirectToLogin();
-        }
-      });
+      }).catch(response => {
+      if (response.status === 401) {
+        this.redirectToLogin();
+      }
+    });
 
     this.AvailabilityService.findCurrentLot()
       .then(lot => {
@@ -60,17 +60,19 @@ class AvailabilityController {
   }
 
   setLoading(lot) {
-    if ( this.loading.indexOf(lot.number) === -1 ) {
+    if (this.loading.indexOf(lot.number) === -1) {
       this.loading.push(lot.number);
     }
   }
 
   shareSpot(lot) {
-      this.AvailabilityService.shareSpot(lot).then(_=> {
-        this.setAvailabilityData();
-         this.resetShareLotForm();
-        this.toastr.success("You have successfully shared your lot.");
-      });
+    this.AvailabilityService.shareSpot(lot).then(_=> {
+      this.setAvailabilityData();
+      this.resetShareLotForm();
+      this.toastr.success("You have successfully shared your lot.");
+    }).catch(response => {
+                    this.toastr.error(response.data.message);
+                  });
   }
 
   takeSpotBack() {
@@ -88,12 +90,12 @@ class AvailabilityController {
     if (!lot.currentlyUsed) {
       this.setLoading(lot);
       this.AvailabilityService.reserveFreeSpot(lot)
-        .then( _=> {
+        .then(_=> {
           this.setAvailabilityData();
           this.resetLoading();
           this.toastr.success("You have successfully reserved a lot");
         })
-        .catch( response => {
+        .catch(response => {
           console.log("Failed to reserve free spot.");
           console.log(response);
         });
@@ -102,7 +104,7 @@ class AvailabilityController {
 
   freeUpLot(lot) {
     this.AvailabilityService.freeUpLot(lot)
-      .then( _=> {
+      .then(_=> {
         this.setAvailabilityData();
         delete this.currentLot;
         this.toastr.success("You have set your lot as available for others to reserve");
@@ -127,13 +129,13 @@ class AvailabilityController {
   changePassword(password) {
     console.log(this.changePasswordForm);
     this.AvailabilityService.changePassword(this.changePasswordForm)
-      .then(result  => {
+      .then(result => {
         this.toastr.success("Your password changed successfully");
         this.changePasswordForm.newPassword = "";
       }).catch(response => {
-        console.log(response);
-        this.toastr.error(response.data.errors[0].message);
-      });
+      console.log(response);
+      this.toastr.error(response.data.errors[0].message);
+    });
   }
 
   showChangePasswordForm() {

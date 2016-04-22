@@ -1,15 +1,18 @@
 export class LoginController {
-  constructor ($location, ResourceService, AuthenticationService) {
+  constructor($location, ResourceService, AuthenticationService) {
     "ngInject";
 
     this.location = $location;
     this.ResourceService = ResourceService;
     AuthenticationService.clearCredentials();
+
+    this.loginRememberMe();
   }
 
-  login() {
-    this.ResourceService.login(form.username.value, form.password.value)
-      .then( _=> { this.onLoginSuccess();
+  login(formdata) {
+    this.ResourceService.login(formdata.username, formdata.password, formdata.remember)
+      .then(_=> {
+        this.onLoginSuccess();
         console.log(_);
       })
       .catch(response => this.onLoginError(response));
@@ -24,6 +27,19 @@ export class LoginController {
     this.error = response.data;
     if (this.error.message === "User already logged") {
       this.location.url("/");
+    } else {
+      this.location.url("/login");
     }
+  }
+
+  loginRememberMe() {
+    this.ResourceService.loginWithRememberMe()
+      .then(_=> {
+        this.onLoginSuccess();
+        console.log(_);
+      })
+      .catch(response => {
+        this.onLoginError();
+      });
   }
 }

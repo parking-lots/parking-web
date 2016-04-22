@@ -3,22 +3,26 @@
     <div class="panel panel-default panel-user-profile">
       <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left" style="margin-top: 6px;">Profile</h3>
-        <button class="btn btn-primary pull-right" ng-click="vm.showChangePasswordForm()" ng-if="!vm.showChangePassword">Change password</button>
+        <button class="btn btn-primary pull-right" ng-click="vm.showChangePasswordForm()"
+                ng-if="!vm.showChangePassword">Change password
+        </button>
       </div>
       <div class="panel-body">
         <div>
           <p>Hi {{ vm.profile.fullName }}!</p>
           <p class="text-muted" ng-if="vm.profile.parking">
-            <p ng-if="vm.profile.parking">Your parking number is <span class="badge">{{ vm.profile.parking.number }}</span> in <span class="badge">{{ vm.profile.parking.floor }}</span> floor.</p>
-            <p ng-if="vm.profile.parking.user">
-              <span class="badge">{{ vm.profile.parking.user.fullName }}</span> took your parking spot
-            </p>
-            <p ng-if="vm.profile.parking.availablePeriods">
-              Parking shared
-            <p ng-repeat="shared in vm.profile.parking.availablePeriods">
-              <span class="badge">{{ shared.freeFrom }}</span>
-              <span class="badge">{{ shared.freeTill }}</span>
-            </p>
+          <p ng-if="vm.profile.parking">Your parking number is <span
+            class="badge">{{ vm.profile.parking.number }}</span> in <span
+            class="badge">{{ vm.profile.parking.floor }}</span> floor.</p>
+          <p ng-if="vm.profile.parking.user">
+            <span class="badge">{{ vm.profile.parking.user.fullName }}</span> took your parking spot
+          </p>
+          <p ng-if="vm.profile.parking.availablePeriods">
+            Parking shared
+          <p ng-repeat="shared in vm.profile.parking.availablePeriods">
+            <span class="badge">{{ shared.freeFrom }}</span>
+            <span class="badge">{{ shared.freeTill }}</span>
+          </p>
           </p>
         </div>
       </div>
@@ -26,14 +30,22 @@
         <form name="changePasswordForm" ng-submit="vm.changePassword()">
           <div class="form-group">
             <label for="newPassword">New password (min 6 max 10 characters)</label>
-            <input type="password" name="newPassword" id="newPassword" class="form-control" ng-model="vm.changePasswordForm.newPassword" required/>
-            <span ng-show="changePasswordForm.newPassword.$dirty && changePasswordForm.newPassword.$error.required" class="help-block">Password is required</span>
+            <input type="password" name="newPassword" id="newPassword" class="form-control"
+                   ng-model="vm.changePasswordForm.newPassword" required/>
+            <span ng-show="changePasswordForm.newPassword.$dirty && changePasswordForm.newPassword.$error.required"
+                  class="help-block">Password is required</span>
           </div>
           <div class="form-group">
-            <input type="password" name="newPasswordConfirm" id="newPasswordConfirm" class="form-control" ng-model="vm.changePasswordForm.newPasswordConfirm" placeholder="Confirm your password" required/>
+            <input type="password" name="newPasswordConfirm" id="newPasswordConfirm" class="form-control"
+                   ng-model="vm.changePasswordForm.newPasswordConfirm" placeholder="Confirm your password" required/>
           </div>
           <div class="form-actions">
-            <button type="submit" ng-disabled="changePasswordForm.$invalid || vm.changePasswordForm.newPassword !== vm.changePasswordForm.newPasswordConfirm" class="btn" ng-class="{'btn-default': changePasswordForm.$invalid, 'btn-primary': changePasswordForm.$valid}">Change</button>
+            <button type="submit"
+                    ng-disabled="changePasswordForm.$invalid || vm.changePasswordForm.newPassword !== vm.changePasswordForm.newPasswordConfirm"
+                    class="btn"
+                    ng-class="{'btn-default': changePasswordForm.$invalid, 'btn-primary': changePasswordForm.$valid}">
+              Change
+            </button>
           </div>
         </form>
       </div>
@@ -62,48 +74,58 @@
   <div class="col-lg-4" ng-if="vm.profile.parking">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
-        <h3 class="panel-title pull-left" style="margin-top: 6px;">Share your lot</h3> <!-- do not worry, it's just a temp workaround -->
+        <h3 class="panel-title pull-left" style="margin-top: 6px;">Share your lot</h3>
+        <!-- do not worry, it's just a temp workaround -->
         <button class="btn btn-default pull-right" ng-click="vm.takeSpotBack()">Take parking back!</button>
       </div>
       <div class="panel-body">
-            <form name="shareSpotForm" ng-submit="vm.shareSpot(vm.lot)">
-              <div class="form-group" ng-class="{'has-error': shareSpotForm.freeFrom.$dirty && !shareSpotForm.freeFrom.$valid}">
-                <label for="startTime">It's free from:</label>
-                <p class="input-group">
-                  <input type="text" class="form-control"
-                  datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeFrom"
-                  datepicker-options="vm.datepickerOptions"
-                  is-open="freeFromOpened" ng-init="freeFromOpened = false"
-                  name="freeFrom"
-                  required
-                  />
+        <form name="shareSpotForm" ng-submit="vm.shareSpot(vm.lot)">
+          <div class="form-group"
+               ng-class="{'has-error': shareSpotForm.freeFrom.$dirty && !shareSpotForm.freeFrom.$valid}">
+            <label for="startTime">It's free from:</label>
+            <p class="input-group">
+              <input type="text" class="form-control"
+                     datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeFrom"
+                     datepicker-options="vm.datepickerOptions"
+                     is-open="freeFromOpened" ng-init="freeFromOpened = false"
+                     name="freeFrom"
+              />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="freeFromOpened = !freeFromOpened"><i class="glyphicon glyphicon-calendar"></i></button>
+                    <button type="button" class="btn btn-default" ng-click="freeFromOpened = !freeFromOpened"><i
+                      class="glyphicon glyphicon-calendar"></i></button>
                   </span>
-                </p>
+            </p>
 
-              </div>
-              <div class="form-group" ng-class="{'has-error': shareSpotForm.freeTill.$dirty && !shareSpotForm.freeTill.$valid}">
-                <label for="endTime">It's free till:</label>
-                <p class="input-group">
-                  <input type="text" class="form-control"
-                  datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeTill"
-                  datepicker-options="vm.datepickerOptions"
-                  is-open="freeTillOpened" ng-init="freeTillOpened = false"
-                  name="freeTill"
-                  required
-                  />
+          </div>
+          <div class="form-group"
+               ng-class="{'has-error': shareSpotForm.freeTill.$dirty && !shareSpotForm.freeTill.$valid}">
+            <label for="endTime">It's free till:</label>
+            <p class="input-group">
+              <input type="text" class="form-control"
+                     datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeTill"
+                     datepicker-options="vm.datepickerOptions"
+                     is-open="freeTillOpened" ng-init="freeTillOpened = false"
+                     name="freeTill"
+              />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="freeTillOpened = !freeTillOpened"><i class="glyphicon glyphicon-calendar"></i></button>
+                    <button type="button" class="btn btn-default" ng-click="freeTillOpened = !freeTillOpened"><i
+                      class="glyphicon glyphicon-calendar"></i></button>
                   </span>
-                </p>
-              </div>
-              <div class="btn-group pull-right">
-                <button type="button" class="btn btn-default" name="button" ng-click="vm.setShareLotDates(1)"><i class="glyphicon glyphicon-time"></i> +1d</button>
-                <button type="button" class="btn btn-default" name="button" ng-click="vm.setShareLotDates(7)"><i class="glyphicon glyphicon-time"></i> +1w</button>
-                <button type="submit" class="btn" ng-class="{'btn-default': shareSpotForm.$invalid, 'btn-primary': shareSpotForm.$valid}" ng-disabled="shareSpotForm.$invalid">Share</button>
-              </div>
-            </form>
+            </p>
+          </div>
+          <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default" name="button" ng-click="vm.setShareLotDates(1)"><i
+              class="glyphicon glyphicon-time"></i> +1d
+            </button>
+            <button type="button" class="btn btn-default" name="button" ng-click="vm.setShareLotDates(7)"><i
+              class="glyphicon glyphicon-time"></i> +1w
+            </button>
+            <button type="submit" class="btn"
+                    ng-class="{'btn-default': shareSpotForm.$invalid, 'btn-primary': shareSpotForm.$valid}"
+                    ng-disabled="shareSpotForm.$invalid">Share
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

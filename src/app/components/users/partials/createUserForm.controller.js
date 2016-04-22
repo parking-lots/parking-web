@@ -1,16 +1,11 @@
-export class AdminController {
+export class CreateNewUserController {
   constructor($location, AuthenticationService) {
     "ngInject";
 
-    this.LOGIN_PATH = "/login";
+    console.log('labas');
 
     this.location = $location;
     this.AuthenticationService = AuthenticationService;
     this.title = "Parking lots | Dashboard";
-  }
-
-  logout() {
-    this.AuthenticationService.clearCredentials();
-    this.location.path(this.LOGIN_PATH);
   }
 }

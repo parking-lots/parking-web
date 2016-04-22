@@ -1,5 +1,5 @@
 export class ResourceService {
-  constructor ($resource, $rootScope, EventsConstant) {
+  constructor($resource, $rootScope, EventsConstant) {
     "ngInject";
 
     this.resource = $resource;
@@ -8,13 +8,14 @@ export class ResourceService {
 
     this.domain = "http://localhost:8085/";
     this.URI = {
-        "list": "parking/available",
-        "reserve": "parking/reserved",
-        "login": "user/login/",
-        "logout": "user/logout/",
-        "changePassword": "profile/password",
-        "profile": "profile"
-      };
+      "list": "parking/available",
+      "reserve": "parking/reserved",
+      "login": "user/login/",
+      "logout": "user/logout/",
+      "changePassword": "profile/password",
+      "profile": "profile",
+      "createUser": "admin/user/create"
+    };
   }
 
   getResource(uriSuffix) {
@@ -25,10 +26,11 @@ export class ResourceService {
     return this.resource(this.domain.concat(this.URI[uriSuffix]));
   }
 
-  login(username, password) {
+  login(username, password, remember) {
     let request = {
       "username": username,
-      "password": password
+      "password": password,
+      "remember": remember
     };
 
     return this.getResource("login").save(request).$promise.then(
@@ -50,4 +52,44 @@ export class ResourceService {
     return this.getResource("change/password").update(newPassword).$promise.then(this.getAvailability());
 
   }
+
+  loginWithRememberMe() {
+    return this.getResource("login").get().$promise
+      .then(
+        _ => this.rootScope.$broadcast(this.EVENTS.LOGIN)
+      );
+  }
+
+
+  createUser(fullname, username, password, number, floor) {
+    let request;
+    if (number != null) {
+      request = {
+        account: {
+          "fullName": fullname,
+          "username": username,
+          "password": password
+        }, parking: {
+          "number": number,
+          "floor": floor
+        }
+      };
+    }
+    else {
+      request = {
+        account: {
+          "fullName": fullname,
+          "username": username,
+          "password": password
+        }
+      };
+    }
+
+
+    return this.getResource("createUser").save(request).$promise.then(
+      _ => this.rootScope.$broadcast(this.EVENTS.CREATEUSER)
+    );
+  }
+
+
 }
