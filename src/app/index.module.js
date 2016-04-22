@@ -18,7 +18,6 @@ import {NewUserController} from "../app/components/users/partials/newuser.contro
 import {UsersDirective} from "../app/components/users/users.directive";
 import {AvailabilityDirective} from "../app/components/availability/availability.directive";
 import {HeaderDirective} from "../app/components/header/header.directive";
-import {DateValidator} from "../app/components/availability/validator.directive";
 
 angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCookies", "ui.bootstrap", "toastr", "ngMessages"])
   .constant("moment", moment)
@@ -36,8 +35,8 @@ angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCoo
   .controller("NewUserController", NewUserController)
   .directive("users", UsersDirective)
   .directive("availability", AvailabilityDirective)
-  .directive("header", HeaderDirective)
-  .directive("dateValidator", DateValidator);
+  .directive("header", HeaderDirective);
+
 
 angular.module('Authentication', [])
   .service("AuthenticationService", AuthenticationService)
