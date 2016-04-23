@@ -30,7 +30,7 @@ class AvailabilityController {
     this.changePasswordForm.newPasswordConfirm = "";
     this.showChangePassword = false;
     this.datepickerOptions = {
-      "minDate": new Date().setHours(0,0,0),
+      "minDate": this.moment().startOf("day").valueOf(),
       "startingDay": 1
     };
     this.loading = [];
