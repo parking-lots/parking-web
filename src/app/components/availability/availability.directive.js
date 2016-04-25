@@ -30,6 +30,7 @@ class AvailabilityController {
     this.changePasswordForm.newPasswordConfirm = "";
     this.showChangePassword = false;
     this.datepickerOptions = {
+      "minDate": this.moment().startOf("day").valueOf(),
       "startingDay": 1
     };
     this.loading = [];
@@ -71,8 +72,8 @@ class AvailabilityController {
       this.resetShareLotForm();
       this.toastr.success("You have successfully shared your lot.");
     }).catch(response => {
-                    this.toastr.error(response.data.message);
-                  });
+      this.toastr.error(response.data.errors[0].message);
+    });
   }
 
   takeSpotBack() {
@@ -141,4 +142,12 @@ class AvailabilityController {
   showChangePasswordForm() {
     this.showChangePassword = true;
   }
+
+  takeSingleSpotBack(parkingNumber, freeTill, freeFrom) {
+    this.ResourceService.takeSingleSpotBack(parkingNumber, freeFrom, freeTill).then(_=> {
+      this.setAvailabilityData();
+      this.toastr.success("Your have successfully taken spot back");
+    });
+  }
+
 }

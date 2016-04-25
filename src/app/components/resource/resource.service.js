@@ -14,7 +14,8 @@ export class ResourceService {
       "logout": "user/logout/",
       "changePassword": "profile/password",
       "profile": "profile",
-      "createUser": "admin/user/create"
+      "createUser": "admin/user/create",
+      "removeParking": "/parking/remove"
     };
   }
 
@@ -24,6 +25,16 @@ export class ResourceService {
     }
 
     return this.resource(this.domain.concat(this.URI[uriSuffix]));
+  }
+
+  takeSingleSpotBack(number, freeFrom, freeTill) {
+    let request = {
+      number: number,
+      freeTill: freeFrom,
+      freeFrom: freeTill
+    };
+
+    return this.getResource("removeParking").save(request).$promise;
   }
 
   login(username, password, remember) {
