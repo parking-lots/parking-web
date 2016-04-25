@@ -57,6 +57,16 @@ class UsersController {
     });
   }
 
+showEditUserForm() {
+    var modalInstance = this.modal.open({
+      templateUrl: './app/components/users/partials/editUser.html',
+      controller: 'NewUserController',
+      bindToController: true,
+      animation: true,
+      keyboard: true
+    });
+  }
+
   redirectToLogin() {
     this.location.path("/");
   }
