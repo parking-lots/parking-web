@@ -8,8 +8,6 @@
       </div>
     </div>
 
-    <h2>{{ vm.users[5].fullName }}</h2>
-
     <p ng-if="vm.users">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
@@ -34,7 +32,7 @@
           <tbody>
           <tr ng-repeat="user in vm.users | filter: searchKeyword">
             <td>{{ user.fullName }}</td>
-            <td>{{ user.username }} {{ $index }}</td>
+            <td>{{ user.username }}</td>
             <td>
               <span ng-repeat="role in user.roles">
                 {{ $first ? '' : $last ? ' and ' : ', '}} {{ role }}
