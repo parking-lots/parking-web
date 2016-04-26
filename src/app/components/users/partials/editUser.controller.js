@@ -13,13 +13,23 @@ export class EditUserController {
 
   activate() {
     this.scope.editUserForm = {
-      fullname: this.user.fullName,
-      username: this.user.username,
-      email: this.user.email,
-      firstCar: this.user.carList[0].regNo,
-      secondCar: this.user.carList[1].regNo
+    fullname: this.user.fullName,
+    username: this.user.username,
     };
-  }
+
+    if (angular.isDefined(this.user.email)) {
+      this.scope.editUserForm.email = this.user.email;
+    }
+    console.log(this.user.carList);
+    if(this.user.carList.length > 0){
+        if (angular.isDefined(this.user.carList[0].regNo)) {
+              this.scope.editUserForm.firstCar = this.user.carList[0].regNo;
+            }
+        if (angular.isDefined(this.user.carList[1].regNo)) {
+                      this.scope.editUserForm.secondCar = this.user.carList[1].regNo;
+         }
+     }
+     }
 
   editUser(form) {
     console.log(form);
