@@ -15,7 +15,10 @@ export class EditUserController {
     this.scope.editUserForm = {
       fullname: this.user.fullName,
       username: this.user.username,
-      password: this.user.password
+      password: this.user.password,
+      email: this.email,
+      firstCar: this.firstCar,
+      secondCar: this.secondCar
     };
   }
 
