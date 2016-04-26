@@ -1,0 +1,42 @@
+<div ng-show="editUser.error" class="alert alert-danger">{{ editUser.error.message }}</div>
+<form name="editUserForm" ng-submit="vm.editUser(editUserForm)" role="form">
+  <div class="modal-header">
+    <h3 class="modal-title">Edit user</h3>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="fullname">Fullname</label>
+      <input type="text" name="fullname" id="fullname" class="form-control" ng-model="vm.editUserForm.fullname" placeholder="Full Name"/>
+    </div>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" disabled class="form-control" ng-model="vm.editUserForm.username" placeholder="username"/>
+      <span ng-show="form.username.$dirty && form.username.$error.required"
+            class="help-block">Username is required</span>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" minlength="6" maxlength="10" class="form-control"
+             ng-model="vm.editUserForm.password" placeholder="{{ vm.users[5].fullName }}" />
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" class="form-control" ng-model="vm.editUserForm.email"/>
+    </div>
+    <div class="form-group">
+      <label>Regno (first car)</label>
+      <input type="text" name="firstCar" id="firstCar" class="form-control" min="6" max="15" ng-model="vm.editUserForm.firstCar"
+             value="rfs"/>
+    </div>
+    <div class="form-group">
+      <label>Regno (second car)</label>
+      <input type="text" name="secondCar" id="secondCar" class="form-control" min="6" max="15" ng-model="vm.editUserForm.secondCar" />
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" ng-disabled="form.$invalid || login.dataLoading" class="btn btn-success">Save</button>
+    <button class="btn btn-danger" type="button" ng-click="vm.close()">Cancel</button>
+    <img ng-if="login.dataLoading"
+         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+  </div>
+</form>

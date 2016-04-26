@@ -18,7 +18,6 @@ class UsersController {
     this.modal = $modal;
     this.UsersService = UsersService;
     this.setUsersData();
-    // this.showForm();
   }
 
   showForm() {
@@ -33,7 +32,6 @@ class UsersController {
       }
     })
   }
-
 
   setUsersData() {
     this.UsersService.getUsers().$promise
@@ -54,6 +52,27 @@ class UsersController {
       bindToController: true,
       animation: true,
       keyboard: true
+    });
+  }
+
+showEditUserForm(user) {
+    var modalInstance = this.modal.open({
+      templateUrl: './app/components/users/partials/editUser.html',
+      controller: 'EditUserController',
+      controllerAs: "vm",
+      bindToController: true,
+      animation: true,
+      keyboard: true,
+      resolve: {
+        user: function () {
+          return user;
+        }
+      }
+    });
+
+    modalInstance.result.then(function() {}, function(data) {
+      console.log("CLOSED");
+      console.log(data);
     });
   }
 
