@@ -8,6 +8,8 @@
       </div>
     </div>
 
+    <h2>{{ vm.users[5].fullName }}</h2>
+
     <p ng-if="vm.users">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
@@ -39,7 +41,7 @@
               </span>
             </td>
             <td>{{ user.number }}</td>
-            <th><button type ="button" class="btn btn-secondary" ng-click="vm.showEditUserForm()">Edit</button></th>
+            <th><button type ="button" class="btn btn-secondary" ng-click="vm.showEditUserForm(user)">Edit</button></th>
           </tr>
           </tbody>
         </table>
