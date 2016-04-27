@@ -37,7 +37,6 @@ class UsersController {
     this.UsersService.getUsers().$promise
       .then(response => {
         this.users = response;
-        console.log(response);
       }).catch(response => {
       if (response.status === 401 || response.status === 403) {
         this.redirectToLogin();
@@ -55,7 +54,7 @@ class UsersController {
     });
   }
 
-showEditUserForm(user) {
+  showEditUserForm(user) {
     var modalInstance = this.modal.open({
       templateUrl: './app/components/users/partials/editUser.html',
       controller: 'EditUserController',
@@ -70,9 +69,8 @@ showEditUserForm(user) {
       }
     });
 
-    modalInstance.result.then(function() {}, function(data) {
-      console.log("CLOSED");
-      console.log(data);
+    modalInstance.result.then(function () {
+    }, function (data) {
     });
   }
 
@@ -80,7 +78,4 @@ showEditUserForm(user) {
     this.location.path("/");
   }
 
-  test() {
-    console.log('working like acharm;)');
-  }
 }

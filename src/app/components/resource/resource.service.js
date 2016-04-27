@@ -104,35 +104,34 @@ export class ResourceService {
   }
 
 
-   editUser(fullname, username, password, email, regno1, regno2) {
-   console.log("regno1: "+ regno1);
-   if (regno1 === undefined){
-   regno1 = null;
-   }
-   if (regno2 === undefined){
+  editUser(fullname, username, password, email, regno1, regno2) {
+    if (regno1 === undefined) {
+      regno1 = null;
+    }
+    if (regno2 === undefined) {
       regno2 = null;
+    }
+    let request;
+    request = {
+      account: {
+        "fullName": fullname,
+        "username": username,
+        "password": password,
+        "email": email
+        , carList: [{
+          "regNo": regno1
+        },
+          {
+            "regNo": regno2
+          }]
       }
-     let request;
-       request = {
-         account: {
-           "fullName": fullname,
-           "username": username,
-           "password": password,
-           "email": email
-         , carList: [{
-           "regNo": regno1
-         },
-         {
-         "regNo": regno2
-         }]
-         }
-       };
+    };
 
 
-     return this.getResource("editUser").save(request).$promise.then(
-       _ => this.rootScope.$broadcast(this.EVENTS.EDITUSER)
-     );
-   }
+    return this.getResource("editUser").save(request).$promise.then(
+      _ => this.rootScope.$broadcast(this.EVENTS.EDITUSER)
+    );
+  }
 
 
 }

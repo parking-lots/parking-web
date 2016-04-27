@@ -6,18 +6,20 @@
   <div class="modal-body">
     <div class="form-group">
       <label for="fullname">Fullname</label>
-      <input type="text" name="fullname" id="fullname" class="form-control" ng-model="vm.editUserForm.fullname" placeholder="Full Name"/>
+      <input type="text" name="fullname" id="fullname" class="form-control" ng-model="vm.editUserForm.fullname"
+             placeholder="Full Name"/>
     </div>
     <div class="form-group">
       <label for="username">Username</label>
-      <input type="text" name="username" id="username" disabled class="form-control" ng-model="vm.editUserForm.username" placeholder="username"/>
+      <input type="text" name="username" id="username" disabled class="form-control" ng-model="vm.editUserForm.username"
+             placeholder="username"/>
       <span ng-show="form.username.$dirty && form.username.$error.required"
             class="help-block">Username is required</span>
     </div>
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" name="password" id="password" minlength="6" maxlength="10" class="form-control"
-             ng-model="vm.editUserForm.password" placeholder="{{ vm.users[5].fullName }}" />
+             ng-model="vm.editUserForm.password" placeholder="{{ vm.users[5].fullName }}"/>
     </div>
     <div class="form-group">
       <label for="email">Email</label>
@@ -25,12 +27,14 @@
     </div>
     <div class="form-group">
       <label>Regno (first car)</label>
-      <input type="text" name="firstCar" id="firstCar" class="form-control" min="6" max="15" ng-model="vm.editUserForm.firstCar"
+      <input type="text" name="firstCar" id="firstCar" class="form-control" min="6" max="15"
+             ng-model="vm.editUserForm.firstCar"
              value="rfs"/>
     </div>
     <div class="form-group">
       <label>Regno (second car)</label>
-      <input type="text" name="secondCar" id="secondCar" class="form-control" min="6" max="15" ng-model="vm.editUserForm.secondCar" />
+      <input type="text" name="secondCar" id="secondCar" class="form-control" min="6" max="15"
+             ng-model="vm.editUserForm.secondCar"/>
     </div>
   </div>
   <div class="modal-footer">
