@@ -24,7 +24,7 @@ export class EditUserController {
       if (angular.isDefined(this.user.carList[0].regNo)) {
         this.scope.editUserForm.firstCar = this.user.carList[0].regNo;
       }
-      if (angular.isDefined(this.user.carList[1].regNo)) {
+      if (this.user.carList.length > 1 && angular.isDefined(this.user.carList[1].regNo)) {
         this.scope.editUserForm.secondCar = this.user.carList[1].regNo;
       }
     }
