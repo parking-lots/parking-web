@@ -7,7 +7,7 @@ export function AvailabilityConstant() {
       "reserve": "parking/reserved",
       "logout": "user/logout/",
       "change/password": "profile/password",
-      "profile": "/profile"
+      "profile": "profile"
     };
 
   this.getUri = function (scope = "list") {
