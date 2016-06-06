@@ -4,9 +4,6 @@ export class LoginController {
 
     this.location = $location;
     this.ResourceService = ResourceService;
-    AuthenticationService.clearCredentials();
-
-    this.loginRememberMe();
   }
 
   login(formdata) {
@@ -20,26 +17,15 @@ export class LoginController {
 
   onLoginSuccess() {
     this.error = null;
-    this.location.url("/");
+    this.location.url("/profile");
   }
 
   onLoginError(response) {
     this.error = response.data;
     if (this.error.message === "User already logged") {
-      this.location.url("/");
+      this.location.url("/profile");
     } else {
       this.location.url("/login");
     }
-  }
-
-  loginRememberMe() {
-    this.ResourceService.loginWithRememberMe()
-      .then(_=> {
-        this.onLoginSuccess();
-        console.log(_);
-      })
-      .catch(response => {
-        this.onLoginError();
-      });
   }
 }

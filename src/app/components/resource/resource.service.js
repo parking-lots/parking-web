@@ -15,7 +15,8 @@ export class ResourceService {
       "changePassword": "profile/password",
       "profile": "profile",
       "createUser": "admin/user/create",
-      "removeParking": "/parking/remove"
+      "removeParking": "/parking/remove",
+      "editUser": "admin/user/edit"
     };
   }
 
@@ -63,15 +64,6 @@ export class ResourceService {
     return this.getResource("change/password").update(newPassword).$promise.then(this.getAvailability());
 
   }
-
-  loginWithRememberMe() {
-    return this.getResource("login").get().$promise
-      .then(
-        _ => this.rootScope.$broadcast(this.EVENTS.LOGIN)
-      );
-  }
-
-
   createUser(fullname, username, password, number, floor) {
     let request;
     if (number != null) {
@@ -99,6 +91,36 @@ export class ResourceService {
 
     return this.getResource("createUser").save(request).$promise.then(
       _ => this.rootScope.$broadcast(this.EVENTS.CREATEUSER)
+    );
+  }
+
+
+  editUser(fullname, username, password, email, regno1, regno2) {
+    if (regno1 === undefined) {
+      regno1 = null;
+    }
+    if (regno2 === undefined) {
+      regno2 = null;
+    }
+    let request;
+    request = {
+      account: {
+        "fullName": fullname,
+        "username": username,
+        "password": password,
+        "email": email
+        , carList: [{
+          "regNo": regno1
+        },
+          {
+            "regNo": regno2
+          }]
+      }
+    };
+
+
+    return this.getResource("editUser").save(request).$promise.then(
+      _ => this.rootScope.$broadcast(this.EVENTS.EDITUSER)
     );
   }
 
