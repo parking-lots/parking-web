@@ -15,7 +15,7 @@ export class AuthenticationService {
       "password": password,
       "remember": remember
     };
-    return this.http.post("http://localhost:8085/user/login", request, function (data) {
+    return this.http.post("http://parkinger.net/api/user/login", request, function(data) {
       console.log("LOGGED IN!");
       console.log(data);
       console.log("-------------------------");
