@@ -6,7 +6,7 @@ export class ResourceService {
     this.rootScope = $rootScope;
     this.EVENTS = EventsConstant;
 
-    this.domain = "http://localhost:8085/";
+    this.domain = "http://parkinger.net/api/";
     this.URI = {
       "list": "parking/available",
       "reserve": "parking/reserved",
