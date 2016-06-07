@@ -38,6 +38,13 @@ export class ResourceService {
     return this.getResource("removeParking").save(request).$promise;
   }
 
+  loginWithRememberMe() {
+    return this.getResource("login").get().$promise
+      .then(
+        _ => this.rootScope.$broadcast(this.EVENTS.LOGIN)
+      );
+  }
+
   login(username, password, remember) {
     let request = {
       "username": username,
