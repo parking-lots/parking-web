@@ -20,19 +20,6 @@ class UsersController {
     this.setUsersData();
   }
 
-  showForm() {
-    var modalInstance = $ui.bootstrap.modal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'partials/createUserForm.html',
-      controller: 'CreateNewUserController',
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
-    })
-  }
-
   setUsersData() {
     this.UsersService.getUsers().$promise
       .then(response => {
@@ -46,7 +33,7 @@ class UsersController {
 
   showNewUserForm() {
     var modalInstance = this.modal.open({
-      templateUrl: './app/components/users/partials/newUser.html',
+      templateUrl: 'app/components/users/partials/newUser.html',
       controller: 'NewUserController',
       bindToController: true,
       animation: true,
@@ -56,7 +43,7 @@ class UsersController {
 
   showEditUserForm(user) {
     var modalInstance = this.modal.open({
-      templateUrl: './app/components/users/partials/editUser.html',
+      templateUrl: 'app/components/users/partials/editUser.html',
       controller: 'EditUserController',
       controllerAs: "vm",
       bindToController: true,
