@@ -1,16 +1,17 @@
 export class NewUserController {
-  constructor($location, $scope, $modalInstance, toastr, ResourceService) {
+  constructor($location, $scope, $modalInstance, toastr, ResourceService, $route) {
     "ngInject";
 
     this.location = $location;
     this.scope = $scope;
+    this.route = $route;
     this.modalInstance = $modalInstance;
     this.toastr = toastr;
     this.ResourceService = ResourceService;
-    this.modalWindow($scope, $modalInstance, toastr, ResourceService);
+    this.modalWindow($scope, $modalInstance, toastr, ResourceService, $route);
   }
 
-  modalWindow($scope, $uibModalInstance, toastr, ResourceService) {
+  modalWindow($scope, $uibModalInstance, toastr, ResourceService, $route) {
     $scope.ok = function () {
       $uibModalInstance.dismiss();
     };
@@ -32,7 +33,9 @@ export class NewUserController {
 
     function onNewUserSuccess() {
       toastr.success("You have successfully added new user.");
-      $uibModalInstance.dismiss('cancel');
+      $uibModalInstance.dismiss();
+
+      $route.reload();
     }
 
     $scope.cancel = function () {

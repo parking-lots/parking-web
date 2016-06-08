@@ -1,8 +1,10 @@
 export class EditUserController {
-  constructor($location, $scope, $modalInstance, $modal, user, toastr, ResourceService) {
+  constructor($location, $scope, $modalInstance, $modal, user, toastr, ResourceService, UsersService, $route) {
     "ngInject";
+    this.UsersService = UsersService;
     this.location = $location;
     this.scope = $scope;
+    this.route = $route;
     this.modalInstance = $modalInstance;
     this.toastr = toastr;
     this.ResourceService = ResourceService;
@@ -46,6 +48,8 @@ export class EditUserController {
   onEditUserSuccess() {
     this.toastr.success("You have successfully updated a user.");
     this.modalInstance.dismiss();
+    
+    this.route.reload();
   }
 
   close() {
