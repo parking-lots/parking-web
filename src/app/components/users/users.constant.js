@@ -1,7 +1,7 @@
 export function UsersConstant() {
   "ngInject";
 
-  let domain = "http://parkinger.net/api/",
+  let domain = "https://test.parkinger.net/api/",
     URI = {
       "list": "admin/users",
       "logout": "user/logout/"

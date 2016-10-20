@@ -23,8 +23,8 @@ class AvailabilityController {
     this.setAvailabilityData();
 
     this.lot = {};
-    this.lot.freeFrom = "";
-    this.lot.freeTill = "";
+    this.lot.from = "";
+    this.lot.till = "";
     this.changePasswordForm = {};
     this.changePasswordForm.newPassword = "";
     this.changePasswordForm.newPasswordConfirm = "";
@@ -117,13 +117,13 @@ class AvailabilityController {
   }
 
   setShareLotDates(days) {
-    this.lot.freeFrom = this.moment().add(1, "days").format("YYYY-MM-DD");
-    this.lot.freeTill = this.moment().add(days, "days").format("YYYY-MM-DD");
+    this.lot.from = this.moment().add(1, "days").format("YYYY-MM-DD");
+    this.lot.till = this.moment().add(days, "days").format("YYYY-MM-DD");
   }
 
   resetShareLotForm() {
-    this.lot.freeFrom = "";
-    this.lot.freeTill = "";
+    this.lot.from = "";
+    this.lot.till = "";
   }
 
 
@@ -143,8 +143,8 @@ class AvailabilityController {
     this.showChangePassword = true;
   }
 
-  takeSingleSpotBack(parkingNumber, freeTill, freeFrom) {
-    this.ResourceService.takeSingleSpotBack(parkingNumber, freeFrom, freeTill).then(_=> {
+  takeSingleSpotBack(parkingNumber, from, till) {
+    this.ResourceService.takeSingleSpotBack(parkingNumber, from, till).then(_=> {
       this.setAvailabilityData();
       this.toastr.success("Your have successfully taken spot back");
     });

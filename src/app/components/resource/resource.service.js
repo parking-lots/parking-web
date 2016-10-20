@@ -6,36 +6,46 @@ export class ResourceService {
     this.rootScope = $rootScope;
     this.EVENTS = EventsConstant;
 
-    this.domain = "http://parkinger.net/api/";
+    this.domain = "https://test.parkinger.net/api/";
     this.URI = {
       "list": "parking/available",
       "reserve": "parking/reserved",
       "login": "user/login/",
-      "logout": "user/logout/",
+      "logout": "user/login",
       "changePassword": "profile/password",
-      "profile": "profile",
+      "profile": "user/profile",
       "createUser": "admin/user/create",
-      "removeParking": "/parking/remove",
+      "removeParking": "/parking/availability",
       "editUser": "admin/user/edit"
     };
   }
 
-  getResource(uriSuffix) {
+  getResource(uriSuffix, request) {
     if (angular.isUndefined(this.URI[uriSuffix])) {
       throw new Error("You have requested resource URI which is not available.");
     }
 
-    return this.resource(this.domain.concat(this.URI[uriSuffix]));
+    return this.resource(
+      this.domain.concat(this.URI[uriSuffix]),
+      null,
+      {
+        "del":
+        {
+          "method": "DELETE",
+          "data": request,
+          headers: {"Content-Type": "application/json;charset=utf-8"}
+        }
+      }
+    );
   }
 
   takeSingleSpotBack(number, freeFrom, freeTill) {
     let request = {
-      number: number,
-      freeTill: freeFrom,
-      freeFrom: freeTill
+      from: freeFrom,
+      till: freeTill
     };
 
-    return this.getResource("removeParking").save(request).$promise;
+    return this.getResource("removeParking", request).del().$promise;
   }
 
   loginWithRememberMe() {
@@ -58,7 +68,7 @@ export class ResourceService {
   }
 
   logout() {
-    return this.getResource("logout").remove().$promise.then(
+    return this.getResource("logout").del().$promise.then(
       _ => this.rootScope.$broadcast(this.EVENTS.LOGOUT)
     );
   }

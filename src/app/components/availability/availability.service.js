@@ -3,15 +3,16 @@ export class AvailabilityService {
     "ngInject";
     this.moment = moment;
 
-    this.getResource = (scope = "list") => $resource(AvailabilityConstant.getUri(scope), null, {
+    this.getResource = (scope = "list", parameter = "") => $resource(AvailabilityConstant.getUri(scope, parameter), null, {
       "get": {"method": "GET"},
       "del": {"method": "DELETE"},
-      "update": {"method": "PUT"}
+      "update": {"method": "PUT"},
+      "updateProfile": {"method": "POST"}
     });
   }
 
   getAvailability() {
-    console.log(this.getResource().query());
+    console.log("Get availability", this.getResource().query());
     return this.getResource().query();
   }
 
@@ -22,7 +23,10 @@ export class AvailabilityService {
   }
 
   shareSpot(lot) {
-    return this.getResource().update(lot).$promise.then(this.getAvailability());
+    lot.from = this.moment(lot.from).format("YYYY-MM-DD").toString();
+    lot.till = this.moment(lot.till).format("YYYY-MM-DD").toString();
+    console.log("Share sport service", lot);
+    return this.getResource("updateList").update(lot).$promise.then(this.getAvailability());
   }
 
   takeSpotBack() {
@@ -30,7 +34,7 @@ export class AvailabilityService {
   }
 
   reserveFreeSpot(lot) {
-    return this.getResource("reserve").update(lot).$promise.then(this.getAvailability());
+    return this.getResource("reserve", lot.number).update().$promise.then(this.getAvailability());
   }
 
   getUserProfile() {
@@ -38,7 +42,10 @@ export class AvailabilityService {
   }
 
   changePassword(newPassword) {
-    return this.getResource("change/password").update(newPassword).$promise.then(this.getAvailability());
+    let updatedPofile = {
+      "password": newPassword.newPassword
+    };
+    return this.getResource("change/password").updateProfile(updatedPofile).$promise.then(this.getAvailability());
   }
 
   reset() {
