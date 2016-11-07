@@ -1,8 +1,5 @@
-/* moment:false */
-
 import {config} from "./index.config";
 import {routerConfig} from "./index.route";
-import {runBlock} from "./index.run";
 import {Base64} from "../app/components/auth/base64.factory";
 import {ResourceService} from "../app/components/resource/resource.service";
 import {AuthenticationService} from "../app/components/auth/authentication.service";
@@ -27,7 +24,6 @@ angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCoo
   .constant("UsersConstant", new UsersConstant())
   .constant("AvailabilityConstant", new AvailabilityConstant())
   .config(routerConfig)
-  .run(runBlock)
   .service("ResourceService", ResourceService)
   .service("AvailabilityService", AvailabilityService)
   .service("UsersService", UsersService)

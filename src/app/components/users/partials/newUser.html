@@ -24,6 +24,13 @@
             class="help-block">Password is required</span>
     </div>
     <div class="form-group">
+      <label for="email">E-mail</label>
+      <input type="email" name="email" id="email" class="form-control" ng-model="formData.email" required/>
+      <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">
+        E-mail is required
+      </span>
+    </div>
+    <div class="form-group">
       <label for="number">Parking Lot Number</label>
       <input type="number" name="number" id="number" class="form-control" min="1" ng-model="formData.number"/>
     </div>
