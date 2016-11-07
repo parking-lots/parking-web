@@ -6,24 +6,53 @@ export class ResourceService {
     this.rootScope = $rootScope;
     this.EVENTS = EventsConstant;
 
-    this.domain = "http://localhost:8085/";
+    this.domain = "https://test.parkinger.net/api/";
     this.URI = {
       "list": "parking/available",
       "reserve": "parking/reserved",
       "login": "user/login/",
-      "logout": "user/logout/",
+      "logout": "user/login",
       "changePassword": "profile/password",
-      "profile": "profile",
-      "createUser": "admin/user/create"
+      "profile": "user/profile",
+      "createUser": "admin/user/create",
+      "removeParking": "/parking/availability",
+      "editUser": "admin/user/edit"
     };
   }
 
-  getResource(uriSuffix) {
+  getResource(uriSuffix, request) {
     if (angular.isUndefined(this.URI[uriSuffix])) {
       throw new Error("You have requested resource URI which is not available.");
     }
 
-    return this.resource(this.domain.concat(this.URI[uriSuffix]));
+    return this.resource(
+      this.domain.concat(this.URI[uriSuffix]),
+      null,
+      {
+        "del":
+        {
+          "method": "DELETE",
+          "data": request,
+          headers: {"Content-Type": "application/json;charset=utf-8"}
+        }
+      }
+    );
+  }
+
+  takeSingleSpotBack(number, freeFrom, freeTill) {
+    let request = {
+      from: freeFrom,
+      till: freeTill
+    };
+
+    return this.getResource("removeParking", request).del().$promise;
+  }
+
+  loginWithRememberMe() {
+    return this.getResource("login").get().$promise
+      .then(
+        _ => this.rootScope.$broadcast(this.EVENTS.LOGIN)
+      );
   }
 
   login(username, password, remember) {
@@ -39,7 +68,7 @@ export class ResourceService {
   }
 
   logout() {
-    return this.getResource("logout").remove().$promise.then(
+    return this.getResource("logout").del().$promise.then(
       _ => this.rootScope.$broadcast(this.EVENTS.LOGOUT)
     );
   }
@@ -52,15 +81,6 @@ export class ResourceService {
     return this.getResource("change/password").update(newPassword).$promise.then(this.getAvailability());
 
   }
-
-  loginWithRememberMe() {
-    return this.getResource("login").get().$promise
-      .then(
-        _ => this.rootScope.$broadcast(this.EVENTS.LOGIN)
-      );
-  }
-
-
   createUser(fullname, username, password, number, floor) {
     let request;
     if (number != null) {
@@ -88,6 +108,36 @@ export class ResourceService {
 
     return this.getResource("createUser").save(request).$promise.then(
       _ => this.rootScope.$broadcast(this.EVENTS.CREATEUSER)
+    );
+  }
+
+
+  editUser(fullname, username, password, email, regno1, regno2) {
+    if (regno1 === undefined) {
+      regno1 = null;
+    }
+    if (regno2 === undefined) {
+      regno2 = null;
+    }
+    let request;
+    request = {
+      account: {
+        "fullName": fullname,
+        "username": username,
+        "password": password,
+        "email": email
+        , carList: [{
+          "regNo": regno1
+        },
+          {
+            "regNo": regno2
+          }]
+      }
+    };
+
+
+    return this.getResource("editUser").save(request).$promise.then(
+      _ => this.rootScope.$broadcast(this.EVENTS.EDITUSER)
     );
   }
 

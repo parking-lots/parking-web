@@ -11,7 +11,6 @@ export class UsersService {
   }
 
   getUsers() {
-    console.log(this.getResource().query());
     return this.getResource().query();
   }
 

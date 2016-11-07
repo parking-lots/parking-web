@@ -1,17 +1,18 @@
 export function AvailabilityConstant() {
   "ngInject";
 
-  let domain = "http://localhost:8085/",
+  let domain = "https://test.parkinger.net/api/",
     URI = {
       "list": "parking/available",
-      "reserve": "parking/reserved",
-      "logout": "user/logout/",
-      "change/password": "profile/password",
-      "profile": "/profile"
+      "updateList": "parking/availability",
+      "reserve": "parking/{pathParam}/reservation",
+      "logout": "user/login",
+      "change/password": "user/profile",
+      "profile": "user/profile"
     };
 
-  this.getUri = function (scope = "list") {
-    return domain.concat(URI[scope]);
+  this.getUri = function (scope = "list", parameter = "") {
+    return domain.concat(URI[scope].replace("{pathParam}", parameter));
   }
 
 }

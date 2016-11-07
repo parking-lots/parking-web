@@ -17,6 +17,11 @@ export function routerConfig($routeProvider) {
       controller: "MainController",
       controllerAs: "main"
     })
+    .when("/profile", {
+      templateUrl: "app/main/main.html",
+      controller: "MainController",
+      controllerAs: "main"
+    })
     .otherwise({
       redirectTo: "/login"
     });

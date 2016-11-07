@@ -15,6 +15,7 @@ import {LoginController} from "./auth/login.controller";
 import {MainController} from "./main/main.controller";
 import {AdminController} from "./admin/admin.controller";
 import {NewUserController} from "../app/components/users/partials/newuser.controller";
+import {EditUserController} from "../app/components/users/partials/editUser.controller";
 import {UsersDirective} from "../app/components/users/users.directive";
 import {AvailabilityDirective} from "../app/components/availability/availability.directive";
 import {HeaderDirective} from "../app/components/header/header.directive";
@@ -33,6 +34,7 @@ angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCoo
   .controller("MainController", MainController)
   .controller("AdminController", AdminController)
   .controller("NewUserController", NewUserController)
+  .controller("EditUserController", EditUserController)
   .directive("users", UsersDirective)
   .directive("availability", AvailabilityDirective)
   .directive("header", HeaderDirective);

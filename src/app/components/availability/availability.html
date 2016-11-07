@@ -20,8 +20,13 @@
           <p ng-if="vm.profile.parking.availablePeriods">
             Parking shared
           <p ng-repeat="shared in vm.profile.parking.availablePeriods">
-            <span class="badge">{{ shared.freeFrom }}</span>
-            <span class="badge">{{ shared.freeTill }}</span>
+            <span class="badge">{{ shared.from }}</span>
+            <span class="badge">{{ shared.till }}</span>
+            <span class="badge">
+              <a href="" ng-click="vm.takeSingleSpotBack(vm.profile.parking.number ,shared.from, shared.till)">
+                <span class="glyphicon glyphicon-remove"></span>
+              </a>
+            </span>
           </p>
           </p>
         </div>
@@ -75,20 +80,18 @@
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left" style="margin-top: 6px;">Share your lot</h3>
-        <!-- do not worry, it's just a temp workaround -->
-        <button class="btn btn-default pull-right" ng-click="vm.takeSpotBack()">Take parking back!</button>
       </div>
       <div class="panel-body">
         <form name="shareSpotForm" ng-submit="vm.shareSpot(vm.lot)">
           <div class="form-group"
-               ng-class="{'has-error': shareSpotForm.freeFrom.$dirty && !shareSpotForm.freeFrom.$valid}">
+               ng-class="{'has-error': shareSpotForm.from.$dirty && !shareSpotForm.from.$valid}">
             <label for="startTime">It's free from:</label>
             <p class="input-group">
               <input type="text" class="form-control"
-                     datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeFrom"
+                     datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.from"
                      datepicker-options="vm.datepickerOptions"
                      is-open="freeFromOpened" ng-init="freeFromOpened = false"
-                     name="freeFrom"
+                     name="from"
               />
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="freeFromOpened = !freeFromOpened"><i
@@ -98,14 +101,14 @@
 
           </div>
           <div class="form-group"
-               ng-class="{'has-error': shareSpotForm.freeTill.$dirty && !shareSpotForm.freeTill.$valid}">
+               ng-class="{'has-error': shareSpotForm.till.$dirty && !shareSpotForm.till.$valid}">
             <label for="endTime">It's free till:</label>
             <p class="input-group">
               <input type="text" class="form-control"
-                     datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.freeTill"
+                     datepicker-popup="yyyy-MM-dd" ng-model="vm.lot.till"
                      datepicker-options="vm.datepickerOptions"
                      is-open="freeTillOpened" ng-init="freeTillOpened = false"
-                     name="freeTill"
+                     name="till"
               />
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="freeTillOpened = !freeTillOpened"><i

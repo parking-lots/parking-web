@@ -23,13 +23,14 @@ class AvailabilityController {
     this.setAvailabilityData();
 
     this.lot = {};
-    this.lot.freeFrom = "";
-    this.lot.freeTill = "";
+    this.lot.from = "";
+    this.lot.till = "";
     this.changePasswordForm = {};
     this.changePasswordForm.newPassword = "";
     this.changePasswordForm.newPasswordConfirm = "";
     this.showChangePassword = false;
     this.datepickerOptions = {
+      "minDate": this.moment().startOf("day").valueOf(),
       "startingDay": 1
     };
     this.loading = [];
@@ -71,8 +72,8 @@ class AvailabilityController {
       this.resetShareLotForm();
       this.toastr.success("You have successfully shared your lot.");
     }).catch(response => {
-                    this.toastr.error(response.data.message);
-                  });
+      this.toastr.error(response.data.message);
+    });
   }
 
   takeSpotBack() {
@@ -116,13 +117,13 @@ class AvailabilityController {
   }
 
   setShareLotDates(days) {
-    this.lot.freeFrom = this.moment().add(1, "days").format("YYYY-MM-DD");
-    this.lot.freeTill = this.moment().add(++days, "days").format("YYYY-MM-DD");
+    this.lot.from = this.moment().add(1, "days").format("YYYY-MM-DD");
+    this.lot.till = this.moment().add(days, "days").format("YYYY-MM-DD");
   }
 
   resetShareLotForm() {
-    this.lot.freeFrom = "";
-    this.lot.freeTill = "";
+    this.lot.from = "";
+    this.lot.till = "";
   }
 
 
@@ -141,4 +142,12 @@ class AvailabilityController {
   showChangePasswordForm() {
     this.showChangePassword = true;
   }
+
+  takeSingleSpotBack(parkingNumber, from, till) {
+    this.ResourceService.takeSingleSpotBack(parkingNumber, from, till).then(_=> {
+      this.setAvailabilityData();
+      this.toastr.success("Your have successfully taken spot back");
+    });
+  }
+
 }

@@ -18,28 +18,12 @@ class UsersController {
     this.modal = $modal;
     this.UsersService = UsersService;
     this.setUsersData();
-    // this.showForm();
   }
-
-  showForm() {
-    var modalInstance = $ui.bootstrap.modal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'partials/createUserForm.html',
-      controller: 'CreateNewUserController',
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
-    })
-  }
-
 
   setUsersData() {
     this.UsersService.getUsers().$promise
       .then(response => {
         this.users = response;
-        console.log(response);
       }).catch(response => {
       if (response.status === 401 || response.status === 403) {
         this.redirectToLogin();
@@ -49,7 +33,7 @@ class UsersController {
 
   showNewUserForm() {
     var modalInstance = this.modal.open({
-      templateUrl: './app/components/users/partials/newUser.html',
+      templateUrl: 'app/components/users/partials/newUser.html',
       controller: 'NewUserController',
       bindToController: true,
       animation: true,
@@ -57,11 +41,28 @@ class UsersController {
     });
   }
 
+  showEditUserForm(user) {
+    var modalInstance = this.modal.open({
+      templateUrl: 'app/components/users/partials/editUser.html',
+      controller: 'EditUserController',
+      controllerAs: "vm",
+      bindToController: true,
+      animation: true,
+      keyboard: true,
+      resolve: {
+        user: function () {
+          return user;
+        }
+      }
+    });
+
+    modalInstance.result.then(function () {
+    }, function (data) {
+    });
+  }
+
   redirectToLogin() {
     this.location.path("/");
   }
 
-  test() {
-    console.log('working like acharm;)');
-  }
 }
