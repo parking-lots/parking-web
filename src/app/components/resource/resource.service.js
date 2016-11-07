@@ -14,7 +14,7 @@ export class ResourceService {
       "logout": "user/login",
       "changePassword": "profile/password",
       "profile": "user/profile",
-      "createUser": "admin/user/create",
+      "createUser": "admin/users",
       "removeParking": "/parking/availability",
       "editUser": "admin/user/edit"
     };
@@ -29,12 +29,20 @@ export class ResourceService {
       this.domain.concat(this.URI[uriSuffix]),
       null,
       {
-        "del":
-        {
-          "method": "DELETE",
-          "data": request,
-          headers: {"Content-Type": "application/json;charset=utf-8"}
-        }
+          "save": {
+              "method": "PUT",
+              "data": request,
+              "headers": {
+                  "Content-Type": "application/json;charset=utf-8"
+              }
+          },
+          "del": {
+              "method": "DELETE",
+              "data": request,
+              "headers": {
+                  "Content-Type": "application/json;charset=utf-8"
+              }
+          }
       }
     );
   }
@@ -79,16 +87,17 @@ export class ResourceService {
 
   changePassword(newPassword) {
     return this.getResource("change/password").update(newPassword).$promise.then(this.getAvailability());
-
   }
-  createUser(fullname, username, password, number, floor) {
+
+  createUser(fullname, username, password, email, number, floor) {
     let request;
     if (number != null) {
       request = {
         account: {
           "fullName": fullname,
           "username": username,
-          "password": password
+          "password": password,
+          "email": email
         }, parking: {
           "number": number,
           "floor": floor
@@ -100,7 +109,8 @@ export class ResourceService {
         account: {
           "fullName": fullname,
           "username": username,
-          "password": password
+          "password": password,
+          "email": email
         }
       };
     }
@@ -140,6 +150,4 @@ export class ResourceService {
       _ => this.rootScope.$broadcast(this.EVENTS.EDITUSER)
     );
   }
-
-
 }

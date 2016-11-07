@@ -19,7 +19,7 @@ export class NewUserController {
     $scope.addNewUser = addNewUser;
 
     function addNewUser(formData) {
-      ResourceService.createUser(formData.fullname, formData.username, formData.password, formData.number, formData.floor)
+      ResourceService.createUser(formData.fullname, formData.username, formData.password, formData.email, formData.number, formData.floor)
         .then(response => {
           onNewUserSuccess();
         }).catch(response => {
