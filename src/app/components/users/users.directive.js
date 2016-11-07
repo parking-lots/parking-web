@@ -55,10 +55,6 @@ class UsersController {
         }
       }
     });
-
-    modalInstance.result.then(function () {
-    }, function (data) {
-    });
   }
 
   redirectToLogin() {
