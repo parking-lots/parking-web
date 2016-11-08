@@ -1,15 +1,20 @@
 'use strict';
-
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
-
+var fs = require('fs');
+var ngConfig = require('gulp-ng-config');
 var browserSync = require('browser-sync');
 var browserSyncSpa = require('browser-sync-spa');
-
 var util = require('util');
-
 var proxyMiddleware = require('http-proxy-middleware');
+var ENV = process.env.APP_ENV || 'dev';
+var config = require('../config.js');
+
+// Here, we use dotenv  to load our env vars in the .env, into process.env
+if (ENV === 'dev') {
+  require('dotenv').load();
+}
 
 function browserSyncInit(baseDir, browser) {
   browser = browser === undefined ? 'default' : browser;
@@ -45,6 +50,19 @@ function browserSyncInit(baseDir, browser) {
 browserSync.use(browserSyncSpa({
   selector: '[ng-app]'// Only needed for angular apps
 }));
+
+gulp.task('ng-config', function() {
+ fs.writeFileSync('./config.json',
+      JSON.stringify(config[ENV]));
+  gulp.src('./config.json')
+    .pipe(
+      ngConfig('parkingLots', {
+        createModule: false
+      })
+    )
+    .pipe(gulp.dest('./src/app'))
+});
+
 
 gulp.task('serve', ['watch'], function () {
   browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.src]);
