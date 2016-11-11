@@ -66,7 +66,7 @@ gulp.task('ng-config', function() {
 });
 
 
-gulp.task('serve', ['watch'], function () {
+gulp.task('serve', ['ng-config', 'watch'], function () {
   browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.src]);
 });
 
