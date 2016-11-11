@@ -57,7 +57,9 @@ gulp.task('ng-config', function() {
   gulp.src('./config.json')
     .pipe(
       ngConfig('parkingLots', {
-        createModule: false
+        createModule: false,
+        wrap: "ESCONSTANT",
+        pretty: true
       })
     )
     .pipe(gulp.dest('./src/app'))

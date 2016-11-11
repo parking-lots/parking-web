@@ -1,6 +1,6 @@
 
 var shared = {
-  apiUrl: process.env.API_URL || "https://test.parkinger.net/api"
+  apiUrl: process.env.API_URL || "https://test.parkinger.net/api/"
 };
 
 var environments = {
