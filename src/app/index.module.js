@@ -16,6 +16,7 @@ import {EditUserController} from "../app/components/users/partials/editUser.cont
 import {UsersDirective} from "../app/components/users/users.directive";
 import {AvailabilityDirective} from "../app/components/availability/availability.directive";
 import {HeaderDirective} from "../app/components/header/header.directive";
+import {ngConstant} from "./config"
 
 angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCookies", "ui.bootstrap", "toastr"])
   .constant("moment", moment)
@@ -33,8 +34,8 @@ angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCoo
   .controller("EditUserController", EditUserController)
   .directive("users", UsersDirective)
   .directive("availability", AvailabilityDirective)
-  .directive("header", HeaderDirective);
-
+  .directive("header", HeaderDirective)
+  .constant("ENV_VARS", new ngConstant());
 
 angular.module('Authentication', [])
   .service("AuthenticationService", AuthenticationService)
