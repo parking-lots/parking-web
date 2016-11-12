@@ -1,9 +1,9 @@
 export class AvailabilityService {
-  constructor($resource, moment, AvailabilityConstant) {
+  constructor($resource, moment, AvailabilityConstant, ENV_VARS) {
     "ngInject";
     this.moment = moment;
 
-    this.getResource = (scope = "list", parameter = "") => $resource(AvailabilityConstant.getUri(scope, parameter), null, {
+    this.getResource = (scope = "list", parameter = "") => $resource(ENV_VARS.apiUrl.concat(AvailabilityConstant.getUri(scope, parameter)), null, {
       "get": {"method": "GET"},
       "del": {"method": "DELETE"},
       "update": {"method": "PUT"},
@@ -12,7 +12,6 @@ export class AvailabilityService {
   }
 
   getAvailability() {
-    console.log("Get availability", this.getResource().query());
     return this.getResource().query();
   }
 
@@ -25,7 +24,6 @@ export class AvailabilityService {
   shareSpot(lot) {
     lot.from = this.moment(lot.from).format("YYYY-MM-DD").toString();
     lot.till = this.moment(lot.till).format("YYYY-MM-DD").toString();
-    console.log("Share sport service", lot);
     return this.getResource("updateList").update(lot).$promise.then(this.getAvailability());
   }
 

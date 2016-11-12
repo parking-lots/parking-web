@@ -7,11 +7,9 @@ var gulp = require('gulp');
 var ngConfig = require('gulp-ng-config');
 var config = require('../config.js');
 var fs = require('fs');
-console.log(ENV);
 
 
 gulp.task('ng-config', function() {
-    console.log("Env2:", ENV);
  fs.writeFileSync('./config.json',
       JSON.stringify(config[ENV]));
   gulp.src('./config.json')
