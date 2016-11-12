@@ -13,7 +13,6 @@ export class LoginController {
     this.ResourceService.login(formdata.username, formdata.password, formdata.remember)
       .then(_=> {
         this.onLoginSuccess();
-        console.log(_);
       })
       .catch(response => this.onLoginError(response));
   }
@@ -36,7 +35,6 @@ export class LoginController {
     this.ResourceService.loginWithRememberMe()
       .then(_=> {
         this.onLoginSuccess();
-        console.log(_);
       })
       .catch(response => {
         this.onLoginError();
