@@ -35,11 +35,9 @@ class HeaderController {
   setProfileData() {
     this.ResourceService.getUserProfile()
       .then(profile => {
-        console.log(profile);
         this.profile = profile;
       })
       .catch(e => {
-        console.log(e);
       });
   }
 
@@ -63,13 +61,11 @@ class HeaderController {
   }
 
   changePassword(password) {
-    console.log(this.changePasswordForm);
     this.ResourceService.changePassword(this.changePasswordForm)
       .then(result => {
         this.toastr.success("Your password changed successfully");
         this.changePasswordForm.newPassword = "";
       }).catch(response => {
-      console.log(response);
       this.toastr.error(response.data.errors[0].message);
     });
   }

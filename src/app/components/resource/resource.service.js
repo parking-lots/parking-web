@@ -1,12 +1,12 @@
 export class ResourceService {
-  constructor($resource, $rootScope, EventsConstant) {
+  constructor($resource, $rootScope, EventsConstant, ENV_VARS) {
     "ngInject";
 
     this.resource = $resource;
     this.rootScope = $rootScope;
     this.EVENTS = EventsConstant;
 
-    this.domain = "https://test.parkinger.net/api/";
+    this.domain = ENV_VARS.apiUrl;
     this.URI = {
       "list": "parking/available",
       "reserve": "parking/reserved",

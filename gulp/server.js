@@ -1,14 +1,11 @@
 'use strict';
-
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
-
+var fs = require('fs');
 var browserSync = require('browser-sync');
 var browserSyncSpa = require('browser-sync-spa');
-
 var util = require('util');
-
 var proxyMiddleware = require('http-proxy-middleware');
 
 function browserSyncInit(baseDir, browser) {

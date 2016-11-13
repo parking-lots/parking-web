@@ -1,8 +1,7 @@
 export function AvailabilityConstant() {
   "ngInject";
 
-  let domain = "https://test.parkinger.net/api/",
-    URI = {
+    let URI = {
       "list": "parking/available",
       "updateList": "parking/availability",
       "reserve": "parking/{pathParam}/reservation",
@@ -12,7 +11,7 @@ export function AvailabilityConstant() {
     };
 
   this.getUri = function (scope = "list", parameter = "") {
-    return domain.concat(URI[scope].replace("{pathParam}", parameter));
+    return URI[scope].replace("{pathParam}", parameter);
   }
 
 }
