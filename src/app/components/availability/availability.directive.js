@@ -57,7 +57,7 @@ class AvailabilityController {
   }
 
   isLoading(lot) {
-    return this.loading.indexOf(lot.number) !== -1;
+    return this.loading.get(lot.number);
   }
 
   setLoading(lot) {
@@ -84,7 +84,7 @@ class AvailabilityController {
   }
 
   resetLoading() {
-    this.loading = [];
+    Object.keys(this.loading).map(key => {this.loading[key] = false});
   }
 
   reserve(lot) {

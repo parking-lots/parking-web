@@ -1,6 +1,7 @@
 {
   "name": "parkingLots",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "dependencies": {},
   "scripts": {
     "test": "gulp test",
     "postinstall": "bower install"
@@ -54,5 +55,9 @@
   },
   "engines": {
     "node": ">=0.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parking-lots/parking-web.git"
   }
 }
