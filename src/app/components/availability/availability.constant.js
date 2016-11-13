@@ -1,4 +1,4 @@
-export function AvailabilityConstant(ENV_VARS) {
+export function AvailabilityConstant() {
   "ngInject";
 
     let URI = {
