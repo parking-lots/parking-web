@@ -8,7 +8,7 @@ export function UsersConstant() {
     };
 
   this.getUri = function (scope = "list") {
-    return domain.concat(URI[scope]);
+      return URI[scope];
   }
 
 }
