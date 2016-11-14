@@ -10,7 +10,7 @@ export class ResourceService {
     this.URI = {
       "list": "parking/available",
       "reserve": "parking/reserved",
-      "login": "user/login/",
+      "login": "user/login",
       "logout": "user/login",
       "changePassword": "profile/password",
       "profile": "user/profile",
@@ -29,7 +29,14 @@ export class ResourceService {
       this.domain.concat(this.URI[uriSuffix]),
       null,
       {
-          "save": {
+          "update": {
+              "method": "POST",
+              "data": request,
+              "headers": {
+                  "Content-Type": "application/json;charset=utf-8"
+              }
+          },
+          "create": {
               "method": "PUT",
               "data": request,
               "headers": {
@@ -70,7 +77,7 @@ export class ResourceService {
       "remember": remember
     };
 
-    return this.getResource("login").save(request).$promise.then(
+    return this.getResource("login").update(request).$promise.then(
       _ => this.rootScope.$broadcast(this.EVENTS.LOGIN)
     );
   }
@@ -116,7 +123,7 @@ export class ResourceService {
     }
 
 
-    return this.getResource("createUser").save(request).$promise.then(
+    return this.getResource("createUser").create(request).$promise.then(
       _ => this.rootScope.$broadcast(this.EVENTS.CREATEUSER)
     );
   }
@@ -146,7 +153,7 @@ export class ResourceService {
     };
 
 
-    return this.getResource("editUser").save(request).$promise.then(
+    return this.getResource("editUser").create(request).$promise.then(
       _ => this.rootScope.$broadcast(this.EVENTS.EDITUSER)
     );
   }
