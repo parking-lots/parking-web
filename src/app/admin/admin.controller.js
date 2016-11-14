@@ -1,4 +1,4 @@
-export class MainController {
+export class AdminController {
   constructor($location, AuthenticationService) {
     "ngInject";
 
@@ -6,15 +6,11 @@ export class MainController {
 
     this.location = $location;
     this.AuthenticationService = AuthenticationService;
-    this.title = "Parking lots";
+    this.title = "Parking lots | Dashboard";
   }
 
   logout() {
     this.AuthenticationService.clearCredentials();
     this.location.path(this.LOGIN_PATH);
-  }
-
-  checkSession() {
-    this.location.url("/login");
   }
 }

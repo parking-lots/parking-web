@@ -2,7 +2,7 @@
  *  If you want to override some bootstrap variables, you have to change values here.
  *  The list of variables are listed here bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss
  */
-$navbar-inverse-link-color: #5AADBB;
+//$navbar-inverse-link-color: #5AADBB;
 $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
 
 /**
@@ -34,6 +34,10 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
 // injector
 // endinjector
 
+body {
+  background: #f4f4f4;
+}
+
 .buffer-top {
   margin-top: 15px;
 }
@@ -41,23 +45,43 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
 /* Loading spinner */
 
 .glyphicon-refresh-animate {
-    -animation: spin .7s infinite linear;
-    -ms-animation: spin .7s infinite linear;
-    -webkit-animation: spinw .7s infinite linear;
-    -moz-animation: spinm .7s infinite linear;
+  -animation: spin .7s infinite linear;
+  -ms-animation: spin .7s infinite linear;
+  -webkit-animation: spinw .7s infinite linear;
+  -moz-animation: spinm .7s infinite linear;
 }
 
 @keyframes spin {
-    from { transform: scale(1) rotate(0deg);}
-    to { transform: scale(1) rotate(360deg);}
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+  to {
+    transform: scale(1) rotate(360deg);
+  }
 }
 
 @-webkit-keyframes spinw {
-    from { -webkit-transform: rotate(0deg);}
-    to { -webkit-transform: rotate(360deg);}
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @-moz-keyframes spinm {
-    from { -moz-transform: rotate(0deg);}
-    to { -moz-transform: rotate(360deg);}
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+.form-control {
+  height: auto;
+}
+
+.container-main {
+  margin-top: 70px;
 }

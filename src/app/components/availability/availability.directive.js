@@ -11,50 +11,49 @@ export function AvailabilityDirective() {
 }
 
 class AvailabilityController {
-  constructor ($q, AvailabilityService) {
+  constructor($q, $location, moment, toastr, AvailabilityService, ResourceService) {
     "ngInject";
 
     this.q = $q;
+    this.location = $location;
+    this.moment = moment;
+    this.toastr = toastr;
     this.AvailabilityService = AvailabilityService;
-    this.onAvailabilityDataChange();
-    AvailabilityService.findCurrentLot().then( lot => { this.currentLot = lot; } );
-    this.loading = new Map;
+    this.ResourceService = ResourceService;
+    this.setAvailabilityData();
+
+    this.lot = {};
+    this.lot.from = "";
+    this.lot.till = "";
+    this.changePasswordForm = {};
+    this.changePasswordForm.newPassword = "";
+    this.changePasswordForm.newPasswordConfirm = "";
+    this.showChangePassword = false;
+    this.datepickerOptions = {
+      "minDate": this.moment().startOf("day").valueOf(),
+      "startingDay": 1
+    };
+    this.loading = [];
   }
 
-  static getAvailabilityLotsNumbers(lots) {
-    return lots.map(lot => lot.number);
-  }
-
-  getAvailabilityData() {
-    var deferred = this.q.defer();
-    if (angular.isArray(this.AvailabilityService)) {
-      deferred.resolve(this.AvailabilityService);
-    } else {
-      this.AvailabilityService.getAvailability().$promise
-        .then(availability => {
-          let numbers = AvailabilityController.getAvailabilityLotsNumbers(availability);
-          this.parkingAvailabilityData = availability.filter((lot,index) => numbers.indexOf(lot.number) === index);
-          deferred.resolve(this.parkingAvailabilityData);
-        })
-        .catch(() => {
-          deferred.reject("Could not retrieve parking lots from the server.");
-        });
-    }
-
-    return deferred.promise;
-  }
-
-  onAvailabilityDataChange() {
-    this.getAvailabilityData().then(availability => {
-      AvailabilityController.getAvailabilityLotsNumbers(availability).map(number => {this.loading.set(number, false)});
+  setAvailabilityData() {
+    this.AvailabilityService.getAvailability().$promise
+      .then(response => {
+        this.parkingAvailabilityData = response;
+        console.log(response);
+      }).catch(response => {
+      if (response.status === 401) {
+        this.redirectToLogin();
+      }
     });
-  }
 
-  fakeReservePromise() {
-    var deferred = this.q.defer();
-    setTimeout( () => { deferred.resolve("Resolved...") }, 2000 );
+    this.AvailabilityService.findCurrentLot()
+      .then(lot => {
+        this.currentLot = lot;
+        console.log(lot);
+      });
 
-    return deferred.promise;
+    this.AvailabilityService.getUserProfile().then(profile => this.profile = profile);
   }
 
   isLoading(lot) {
@@ -62,7 +61,26 @@ class AvailabilityController {
   }
 
   setLoading(lot) {
-    this.loading.set(lot.number, true);
+    if (this.loading.indexOf(lot.number) === -1) {
+      this.loading.push(lot.number);
+    }
+  }
+
+  shareSpot(lot) {
+    this.AvailabilityService.shareSpot(lot).then(_=> {
+      this.setAvailabilityData();
+      this.resetShareLotForm();
+      this.toastr.success("You have successfully shared your lot.");
+    }).catch(response => {
+      this.toastr.error(response.data.message);
+    });
+  }
+
+  takeSpotBack() {
+    this.AvailabilityService.takeSpotBack().then(_=> {
+      this.setAvailabilityData();
+      this.toastr.success("You have successfully taken spot back");
+    });
   }
 
   resetLoading() {
@@ -70,62 +88,66 @@ class AvailabilityController {
   }
 
   reserve(lot) {
-    if (!this.isLoading(lot)) {
+    if (!lot.currentlyUsed) {
       this.setLoading(lot);
-      this.fakeReservePromise().then( _=> {
-        this.resetLoading();
-        this.onAvailabilityDataChange();
-      });
-    } else {
-      console.log("STOP! I am loading this..");
+      this.AvailabilityService.reserveFreeSpot(lot)
+        .then(_=> {
+          this.setAvailabilityData();
+          this.resetLoading();
+          this.toastr.success("You have successfully reserved a lot");
+        })
+        .catch(response => {
+          console.log("Failed to reserve free spot.");
+          console.log(response);
+        });
     }
-  }
-
-  isFreeUpLotAvailable(lot) {
-    return !!this.currentLot;
   }
 
   freeUpLot(lot) {
     this.AvailabilityService.freeUpLot(lot)
-      .then(response => {
-        this.onAvailabilityDataChange();
-        console.log(response);
-      })
-      .catch(response => {
-        console.log(response.data.message);
+      .then(_=> {
+        this.setAvailabilityData();
+        delete this.currentLot;
+        this.toastr.success("You have set your lot as available for others to reserve");
       });
   }
 
-  isResetLotAvailable() {
-    // search this available free lots with this lot as a needle,
-    // if found then reset is available
-    // because this user has been set his lot as available/free
-
-    console.log("-----------------------------------------------");
-    console.log("Searching if reset lot is available...");
-    console.log(this.currentLot.number);
-    console.log(this.parkingAvailabilityData);
-
-    /*this.parkingAvailabilityData.map(lot => {
-      if (lot.number === this.currentLot.number) {
-        console.log("Found!");
-        return true;
-      }
-    });*/
-
-    console.log(typeof this.parkingAvailabilityData);
-
-    return false;
+  redirectToLogin() {
+    this.location.path("/login");
   }
 
-  resetLot(lot) {
-    this.AvailabilityService.resetLot(lot)
-      .then(response => {
-        this.onAvailabilityDataChange();
-        console.log(response);
-      })
-      .catch(response => {
-        console.log(response.data.message);
-      });
+  setShareLotDates(days) {
+    this.lot.from = this.moment().add(1, "days").format("YYYY-MM-DD");
+    this.lot.till = this.moment().add(days, "days").format("YYYY-MM-DD");
   }
+
+  resetShareLotForm() {
+    this.lot.from = "";
+    this.lot.till = "";
+  }
+
+
+  changePassword(password) {
+    console.log(this.changePasswordForm);
+    this.AvailabilityService.changePassword(this.changePasswordForm)
+      .then(result => {
+        this.toastr.success("Your password changed successfully");
+        this.changePasswordForm.newPassword = "";
+      }).catch(response => {
+      console.log(response);
+      this.toastr.error(response.data.errors[0].message);
+    });
+  }
+
+  showChangePasswordForm() {
+    this.showChangePassword = true;
+  }
+
+  takeSingleSpotBack(parkingNumber, from, till) {
+    this.ResourceService.takeSingleSpotBack(parkingNumber, from, till).then(_=> {
+      this.setAvailabilityData();
+      this.toastr.success("Your have successfully taken spot back");
+    });
+  }
+
 }
