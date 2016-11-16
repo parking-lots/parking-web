@@ -55,7 +55,7 @@ class AvailabilityController {
   }
 
   isLoading(lot) {
-    return this.loading.get(lot.number);
+    return this.loading.indexOf(lot.number) !== -1;
   }
 
   setLoading(lot) {
