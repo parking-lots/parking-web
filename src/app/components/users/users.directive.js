@@ -11,7 +11,7 @@ export function UsersDirective() {
 }
 
 class UsersController {
-  constructor($location, $modal, UsersService) {
+  constructor($location, $modal, UsersService, ENV_VARS) {
     "ngInject";
 
     this.location = $location;
@@ -54,10 +54,6 @@ class UsersController {
           return user;
         }
       }
-    });
-
-    modalInstance.result.then(function () {
-    }, function (data) {
     });
   }
 

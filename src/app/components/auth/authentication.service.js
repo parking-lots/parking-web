@@ -1,5 +1,5 @@
 export class AuthenticationService {
-  constructor($http, ResourceService, $cookies, $timeout) {
+  constructor($http, ResourceService, $cookies, $timeout, ENV_VARS) {
     "ngInject";
 
     this.http = $http;
@@ -15,10 +15,7 @@ export class AuthenticationService {
       "password": password,
       "remember": remember
     };
-    return this.http.post("https://test.parkinger.net/api/user/login", request, function(data) {
-      console.log("LOGGED IN!");
-      console.log(data);
-      console.log("-------------------------");
+    return this.http.post(ENV_VARS.apiUrl + "user/login", request, function(data) {
     });
   }
 

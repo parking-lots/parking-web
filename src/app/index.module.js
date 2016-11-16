@@ -1,8 +1,5 @@
-/* moment:false */
-
 import {config} from "./index.config";
 import {routerConfig} from "./index.route";
-import {runBlock} from "./index.run";
 import {Base64} from "../app/components/auth/base64.factory";
 import {ResourceService} from "../app/components/resource/resource.service";
 import {AuthenticationService} from "../app/components/auth/authentication.service";
@@ -19,6 +16,7 @@ import {EditUserController} from "../app/components/users/partials/editUser.cont
 import {UsersDirective} from "../app/components/users/users.directive";
 import {AvailabilityDirective} from "../app/components/availability/availability.directive";
 import {HeaderDirective} from "../app/components/header/header.directive";
+import {ngConstant} from "./config"
 
 angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCookies", "ui.bootstrap", "toastr"])
   .constant("moment", moment)
@@ -27,7 +25,6 @@ angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCoo
   .constant("UsersConstant", new UsersConstant())
   .constant("AvailabilityConstant", new AvailabilityConstant())
   .config(routerConfig)
-  .run(runBlock)
   .service("ResourceService", ResourceService)
   .service("AvailabilityService", AvailabilityService)
   .service("UsersService", UsersService)
@@ -37,8 +34,8 @@ angular.module("parkingLots", ["Authentication", "ngResource", "ngRoute", "ngCoo
   .controller("EditUserController", EditUserController)
   .directive("users", UsersDirective)
   .directive("availability", AvailabilityDirective)
-  .directive("header", HeaderDirective);
-
+  .directive("header", HeaderDirective)
+  .constant("ENV_VARS", new ngConstant());
 
 angular.module('Authentication', [])
   .service("AuthenticationService", AuthenticationService)

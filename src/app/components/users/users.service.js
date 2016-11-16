@@ -1,9 +1,9 @@
 export class UsersService {
-  constructor($resource, moment, UsersConstant) {
+  constructor($resource, moment, UsersConstant, ENV_VARS) {
     "ngInject";
     this.moment = moment;
 
-    this.getResource = (scope = "list") => $resource(UsersConstant.getUri(scope), null, {
+    this.getResource = (scope = "list") => $resource(ENV_VARS.apiUrl.concat(UsersConstant.getUri(scope)), null, {
       "get": {"method": "GET"},
       "del": {"method": "DELETE"},
       "update": {"method": "PUT"}

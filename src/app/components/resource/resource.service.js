@@ -1,20 +1,20 @@
 export class ResourceService {
-  constructor($resource, $rootScope, EventsConstant) {
+  constructor($resource, $rootScope, EventsConstant, ENV_VARS) {
     "ngInject";
 
     this.resource = $resource;
     this.rootScope = $rootScope;
     this.EVENTS = EventsConstant;
 
-    this.domain = "https://test.parkinger.net/api/";
+    this.domain = ENV_VARS.apiUrl;
     this.URI = {
       "list": "parking/available",
       "reserve": "parking/reserved",
-      "login": "user/login/",
+      "login": "user/login",
       "logout": "user/login",
       "changePassword": "profile/password",
       "profile": "user/profile",
-      "createUser": "admin/user/create",
+      "createUser": "admin/users",
       "removeParking": "/parking/availability",
       "editUser": "admin/user/edit"
     };
@@ -29,12 +29,27 @@ export class ResourceService {
       this.domain.concat(this.URI[uriSuffix]),
       null,
       {
-        "del":
-        {
-          "method": "DELETE",
-          "data": request,
-          headers: {"Content-Type": "application/json;charset=utf-8"}
-        }
+          "update": {
+              "method": "POST",
+              "data": request,
+              "headers": {
+                  "Content-Type": "application/json;charset=utf-8"
+              }
+          },
+          "create": {
+              "method": "PUT",
+              "data": request,
+              "headers": {
+                  "Content-Type": "application/json;charset=utf-8"
+              }
+          },
+          "del": {
+              "method": "DELETE",
+              "data": request,
+              "headers": {
+                  "Content-Type": "application/json;charset=utf-8"
+              }
+          }
       }
     );
   }
@@ -62,7 +77,7 @@ export class ResourceService {
       "remember": remember
     };
 
-    return this.getResource("login").save(request).$promise.then(
+    return this.getResource("login").update(request).$promise.then(
       _ => this.rootScope.$broadcast(this.EVENTS.LOGIN)
     );
   }
@@ -79,16 +94,17 @@ export class ResourceService {
 
   changePassword(newPassword) {
     return this.getResource("change/password").update(newPassword).$promise.then(this.getAvailability());
-
   }
-  createUser(fullname, username, password, number, floor) {
+
+  createUser(fullname, username, password, email, number, floor) {
     let request;
     if (number != null) {
       request = {
         account: {
           "fullName": fullname,
           "username": username,
-          "password": password
+          "password": password,
+          "email": email
         }, parking: {
           "number": number,
           "floor": floor
@@ -100,13 +116,14 @@ export class ResourceService {
         account: {
           "fullName": fullname,
           "username": username,
-          "password": password
+          "password": password,
+          "email": email
         }
       };
     }
 
 
-    return this.getResource("createUser").save(request).$promise.then(
+    return this.getResource("createUser").create(request).$promise.then(
       _ => this.rootScope.$broadcast(this.EVENTS.CREATEUSER)
     );
   }
@@ -136,10 +153,8 @@ export class ResourceService {
     };
 
 
-    return this.getResource("editUser").save(request).$promise.then(
+    return this.getResource("editUser").create(request).$promise.then(
       _ => this.rootScope.$broadcast(this.EVENTS.EDITUSER)
     );
   }
-
-
 }
